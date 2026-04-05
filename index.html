@@ -1,11 +1,2314 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Alexandroit</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alexandro.Net | ReviveJS Open Source Modernization</title>
+  <meta
+    name="description"
+    content="Alexandro.Net presents ReviveJS: a portfolio of maintained open-source libraries for Angular, React, Vue, and Vanilla JS that revives abandoned packages, builds missing market-ready tools, and ports proven ideas across ecosystems."
+  >
+  <meta name="theme-color" content="#f5f7fb">
+  <meta property="og:title" content="Alexandro.Net | ReviveJS Open Source Modernization">
+  <meta
+    property="og:description"
+    content="ReviveJS keeps critical open-source frontend libraries alive, modern, and portable across Angular, React, Vue, and Vanilla JS."
+  >
+  <meta property="og:type" content="website">
+  <link
+    rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2311224d'/%3E%3Cstop offset='55%25' stop-color='%232865ff'/%3E%3Cstop offset='100%25' stop-color='%2320b59d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Cpath d='M21 47L31.5 17H33.8L44 47H37.6L35.5 40.3H28.8L26.6 47H21ZM30.3 35.4H34L32.2 29.3L30.3 35.4Z' fill='white'/%3E%3C/svg%3E"
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: rgba(255, 255, 255, 0.76);
+      --surface-strong: #ffffff;
+      --surface-dark: #0d1a31;
+      --text: #0c1830;
+      --muted: #5b667d;
+      --border: rgba(14, 29, 59, 0.12);
+      --shadow: 0 24px 60px rgba(19, 35, 67, 0.12);
+      --shadow-soft: 0 18px 42px rgba(13, 25, 49, 0.08);
+      --hero-glow-a: rgba(39, 99, 255, 0.18);
+      --hero-glow-b: rgba(7, 180, 145, 0.16);
+      --hero-glow-c: rgba(255, 119, 71, 0.14);
+      --angular: #dd0031;
+      --react: #1e9dff;
+      --vue: #36a46f;
+      --vanilla: #c78700;
+      --dark-accent: #9cbcff;
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max-width: 1220px;
+      --transition: 220ms ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, var(--hero-glow-a), transparent 24rem),
+        radial-gradient(circle at 88% 14%, var(--hero-glow-b), transparent 28rem),
+        radial-gradient(circle at 30% 92%, var(--hero-glow-c), transparent 26rem),
+        linear-gradient(180deg, #f6f8fc 0%, #edf3fb 100%);
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.14;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 92%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page-shell {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(245, 247, 251, 0.75);
+      border-bottom: 1px solid rgba(17, 32, 66, 0.06);
+    }
+
+    .topbar-inner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      min-height: 88px;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.95rem;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 1.45rem;
+      background:
+        linear-gradient(140deg, #10224d 0%, #2865ff 58%, #20b59d 100%);
+      box-shadow: 0 18px 34px rgba(32, 84, 203, 0.28);
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-copy strong,
+    .hero-copy h1,
+    .section-heading h2,
+    .spotlight-copy h3,
+    .value-card h3,
+    .impact-card h3,
+    .package-card h3,
+    .footer-brand strong {
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1.12rem;
+      line-height: 1.1;
+    }
+
+    .brand-copy span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-top: 0.2rem;
+    }
+
+    .framework-nav {
+      justify-self: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.65rem;
+    }
+
+    .framework-pill {
+      border: 1px solid rgba(15, 32, 66, 0.08);
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 999px;
+      padding: 0.7rem 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
+      box-shadow: 0 8px 24px rgba(12, 25, 49, 0.05);
+    }
+
+    .framework-pill:hover,
+    .framework-pill:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(28, 73, 173, 0.2);
+      outline: none;
+    }
+
+    .framework-pill.is-active {
+      background: #10224d;
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(16, 34, 77, 0.22);
+    }
+
+    .framework-pill[data-filter="angular"].is-active {
+      background: linear-gradient(135deg, #7e0f25 0%, var(--angular) 100%);
+    }
+
+    .framework-pill[data-filter="react"].is-active {
+      background: linear-gradient(135deg, #13527c 0%, var(--react) 100%);
+    }
+
+    .framework-pill[data-filter="vue"].is-active {
+      background: linear-gradient(135deg, #0f5e44 0%, var(--vue) 100%);
+    }
+
+    .framework-pill[data-filter="vanilla"].is-active {
+      background: linear-gradient(135deg, #8f5b00 0%, var(--vanilla) 100%);
+    }
+
+    .pill-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .resource-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.6rem;
+    }
+
+    .resource-link,
+    .hero-actions a,
+    .card-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
+    }
+
+    .resource-link {
+      padding: 0.72rem 0.95rem;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(15, 32, 66, 0.08);
+      color: #21304f;
+      font-size: 0.92rem;
+    }
+
+    .resource-link:hover,
+    .resource-link:focus-visible,
+    .hero-actions a:hover,
+    .hero-actions a:focus-visible,
+    .card-actions a:hover,
+    .card-actions a:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(15, 34, 72, 0.12);
+      outline: none;
+    }
+
+    .hero {
+      padding: 4.4rem 0 2.8rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .spotlight-card,
+    .value-card,
+    .impact-card,
+    .package-card,
+    .quote-card,
+    .footnote-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-copy {
+      padding: clamp(2rem, 3vw, 3rem);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.72)),
+        linear-gradient(120deg, rgba(40, 101, 255, 0.08), rgba(32, 181, 157, 0.07));
+      backdrop-filter: blur(18px);
+    }
+
+    .eyebrow,
+    .section-heading span,
+    .spotlight-kicker,
+    .metric-label,
+    .package-badge,
+    .inline-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .eyebrow,
+    .section-heading span,
+    .spotlight-kicker,
+    .metric-label,
+    .inline-label {
+      color: #2a5add;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.95rem, 5vw, 5.6rem);
+      line-height: 0.96;
+      margin: 1rem 0 1.1rem;
+      max-width: 12ch;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.06rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin: 1.7rem 0 2rem;
+    }
+
+    .hero-actions a {
+      min-height: 52px;
+      padding: 0.85rem 1.25rem;
+      border: 1px solid transparent;
+    }
+
+    .hero-actions .primary {
+      color: #fff;
+      background: linear-gradient(135deg, #11224d 0%, #2865ff 56%, #1eb593 100%);
+      box-shadow: 0 18px 36px rgba(25, 73, 177, 0.24);
+    }
+
+    .hero-actions .secondary {
+      background: rgba(255, 255, 255, 0.84);
+      border-color: rgba(15, 32, 66, 0.1);
+      color: #203052;
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .highlight-card {
+      padding: 1rem 1rem 1.05rem;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(12, 24, 48, 0.08);
+    }
+
+    .highlight-card strong {
+      display: block;
+      font-size: 1.25rem;
+      font-family: "Space Grotesk", sans-serif;
+      margin-bottom: 0.35rem;
+    }
+
+    .highlight-card span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-panel {
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(6, 14, 30, 0.98), rgba(18, 34, 70, 0.96)),
+        radial-gradient(circle at top right, rgba(77, 127, 255, 0.34), transparent 14rem);
+      color: #edf4ff;
+      padding: 1.6rem;
+      position: relative;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      inset: auto -5rem -6rem auto;
+      width: 15rem;
+      height: 15rem;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(51, 124, 255, 0.38), transparent 65%);
+      filter: blur(16px);
+    }
+
+    .hero-panel h2 {
+      margin: 0.35rem 0 0.7rem;
+      font-size: 1.4rem;
+      font-family: "Space Grotesk", sans-serif;
+      line-height: 1.08;
+    }
+
+    .hero-panel p {
+      margin: 0;
+      color: rgba(237, 244, 255, 0.76);
+    }
+
+    .counter-card {
+      padding: 1.3rem;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      margin-top: 1.3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .counter-value {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: clamp(3rem, 6vw, 4.8rem);
+      line-height: 0.9;
+      margin: 0.75rem 0 0.45rem;
+      letter-spacing: -0.05em;
+    }
+
+    .counter-note {
+      margin-top: 1rem;
+      font-size: 0.88rem;
+      color: rgba(237, 244, 255, 0.68);
+    }
+
+    .panel-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-metric {
+      padding: 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .panel-metric strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.2rem;
+      margin-top: 0.25rem;
+    }
+
+    .section {
+      padding: 1.5rem 0;
+    }
+
+    .section-heading {
+      display: grid;
+      gap: 0.45rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(2rem, 3.5vw, 3.25rem);
+      line-height: 1;
+    }
+
+    .section-heading p {
+      margin: 0;
+      max-width: 70ch;
+      color: var(--muted);
+    }
+
+    .spotlight-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 1.2rem;
+      align-items: stretch;
+    }
+
+    .spotlight-card {
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+    }
+
+    .spotlight-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .spotlight-copy h3 {
+      margin: 0.6rem 0 0.7rem;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      line-height: 0.98;
+      max-width: 11ch;
+    }
+
+    .spotlight-copy p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 56ch;
+    }
+
+    .spotlight-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 96px;
+      padding: 0.6rem 0.85rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    .spotlight-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.95fr);
+      gap: 1.1rem;
+      align-items: stretch;
+      margin-top: 1.3rem;
+    }
+
+    .spotlight-preview {
+      min-height: 290px;
+      border-radius: 26px;
+      padding: 1.2rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .spotlight-preview::before {
+      content: "";
+      position: absolute;
+      inset: 1.1rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .preview-inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 0.8rem;
+    }
+
+    .preview-toolbar {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .preview-dot {
+      width: 0.72rem;
+      height: 0.72rem;
+      border-radius: 999px;
+      background: rgba(15, 32, 66, 0.14);
+    }
+
+    .preview-shell {
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(250, 252, 255, 0.95), rgba(240, 244, 251, 0.98));
+      border: 1px solid rgba(11, 25, 47, 0.08);
+      padding: 1rem;
+      display: grid;
+      gap: 0.8rem;
+      align-content: start;
+    }
+
+    .preview-pill {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 32, 66, 0.06);
+      color: #22304c;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .preview-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+
+    .preview-block,
+    .preview-line,
+    .preview-chip,
+    .calendar-cell,
+    .observer-box {
+      border-radius: 12px;
+      background: rgba(18, 34, 71, 0.07);
+    }
+
+    .preview-line {
+      height: 0.72rem;
+    }
+
+    .preview-line.short {
+      width: 55%;
+    }
+
+    .preview-line.medium {
+      width: 72%;
+    }
+
+    .preview-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .preview-chip {
+      height: 2rem;
+      min-width: 4.8rem;
+    }
+
+    .preview-select {
+      height: 3rem;
+      border-radius: 16px;
+      border: 1px solid rgba(17, 31, 64, 0.08);
+      background: rgba(255, 255, 255, 0.88);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 0.95rem;
+      color: #354666;
+      font-weight: 700;
+    }
+
+    .preview-options {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .preview-option {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.72rem 0.78rem;
+      border-radius: 14px;
+      background: rgba(17, 31, 64, 0.05);
+    }
+
+    .preview-checkbox {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 4px;
+      border: 2px solid rgba(17, 31, 64, 0.18);
+      background: #fff;
+    }
+
+    .preview-table {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .preview-table-head,
+    .preview-table-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 0.8fr;
+      gap: 0.5rem;
+    }
+
+    .preview-table-cell {
+      height: 0.9rem;
+      border-radius: 999px;
+      background: rgba(16, 34, 77, 0.1);
+    }
+
+    .preview-chart {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 0.9rem;
+      min-height: 11rem;
+    }
+
+    .preview-chart-area {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      align-items: end;
+      gap: 0.6rem;
+      min-height: 8rem;
+      padding-top: 1.2rem;
+      position: relative;
+    }
+
+    .preview-chart-area::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(16, 34, 77, 0.03) 0, rgba(16, 34, 77, 0.03) 1px, transparent 1px);
+      background-size: 100% 25%;
+      border-radius: 18px;
+    }
+
+    .preview-bar {
+      border-radius: 14px 14px 6px 6px;
+      background: linear-gradient(180deg, rgba(32, 181, 157, 0.92), rgba(40, 101, 255, 0.88));
+      position: relative;
+      z-index: 1;
+    }
+
+    .preview-chart-line {
+      position: absolute;
+      inset: 1.3rem 0 1.2rem 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .preview-chart-line svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .preview-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .calendar-cell {
+      aspect-ratio: 1 / 1;
+      min-height: 1.5rem;
+    }
+
+    .calendar-cell.is-accent {
+      background: linear-gradient(135deg, rgba(40, 101, 255, 0.88), rgba(32, 181, 157, 0.8));
+    }
+
+    .observer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 0.8rem;
+      min-height: 10rem;
+    }
+
+    .observer-box {
+      position: relative;
+      min-height: 5rem;
+      background: linear-gradient(135deg, rgba(40, 101, 255, 0.14), rgba(32, 181, 157, 0.14));
+      border: 1px dashed rgba(17, 31, 64, 0.18);
+    }
+
+    .observer-box::after {
+      content: "";
+      position: absolute;
+      right: 0.45rem;
+      bottom: 0.45rem;
+      width: 1rem;
+      height: 1rem;
+      border-right: 2px solid rgba(17, 31, 64, 0.4);
+      border-bottom: 2px solid rgba(17, 31, 64, 0.4);
+      border-radius: 2px;
+    }
+
+    .spotlight-list {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .spotlight-item {
+      padding: 1rem;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(247, 250, 255, 0.98), rgba(239, 244, 252, 0.98));
+      border: 1px solid rgba(15, 32, 66, 0.08);
+    }
+
+    .spotlight-item h4 {
+      margin: 0 0 0.28rem;
+      font-size: 1rem;
+    }
+
+    .spotlight-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .spotlight-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
+    }
+
+    .meta-chip,
+    .package-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-height: 2rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(17, 31, 64, 0.06);
+      color: #314261;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .spotlight-side {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .value-card,
+    .impact-card,
+    .quote-card,
+    .footnote-card {
+      padding: 1.3rem;
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(14px);
+    }
+
+    .value-card h3,
+    .impact-card h3,
+    .quote-card h3 {
+      margin: 0.65rem 0 0.5rem;
+      font-size: 1.28rem;
+      line-height: 1.06;
+    }
+
+    .value-card p,
+    .impact-card p,
+    .quote-card p,
+    .footnote-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .package-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: end;
+      margin-bottom: 1.2rem;
+    }
+
+    .package-status {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .package-card {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(14px);
+      display: grid;
+      gap: 1rem;
+      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition), filter var(--transition), border-color var(--transition);
+      position: relative;
+    }
+
+    .package-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: rgba(25, 73, 177, 0.16);
+    }
+
+    .package-card.is-dimmed {
+      opacity: 0.48;
+      filter: grayscale(0.12);
+    }
+
+    .package-card.is-selected {
+      border-color: rgba(28, 73, 173, 0.18);
+      box-shadow: 0 22px 52px rgba(18, 40, 88, 0.14);
+    }
+
+    .package-badge {
+      width: fit-content;
+      border-radius: 999px;
+      padding: 0.45rem 0.7rem;
+      letter-spacing: 0.04em;
+      color: #fff;
+    }
+
+    .package-card h3 {
+      margin: 0.15rem 0 0;
+      font-size: 1.28rem;
+      line-height: 1.08;
+    }
+
+    .package-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .package-preview {
+      min-height: 196px;
+      border-radius: 22px;
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .package-preview::before {
+      content: "";
+      position: absolute;
+      inset: 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .package-preview .preview-inner {
+      min-height: 164px;
+    }
+
+    .package-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .package-stat.is-soft {
+      background: rgba(16, 34, 77, 0.05);
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: auto;
+    }
+
+    .card-actions a {
+      min-height: 2.8rem;
+      padding: 0.72rem 0.95rem;
+      border: 1px solid rgba(16, 34, 77, 0.1);
+      background: rgba(255, 255, 255, 0.84);
+      font-size: 0.92rem;
+    }
+
+    .card-actions .primary-link {
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .mission-layout,
+    .impact-layout,
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    .values-grid,
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .quote-card {
+      background:
+        linear-gradient(160deg, rgba(16, 34, 77, 0.96), rgba(28, 59, 122, 0.94));
+      color: #eef4ff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -2rem -2.5rem auto;
+      width: 9rem;
+      height: 9rem;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(34, 181, 157, 0.38), transparent 66%);
+      filter: blur(16px);
+    }
+
+    .quote-card p {
+      color: rgba(238, 244, 255, 0.82);
+      font-size: 1.02rem;
+    }
+
+    .quote-line {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      line-height: 1.15;
+      margin: 0.85rem 0;
+    }
+
+    .footnote-card {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .footnote-list {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .footnote-item {
+      padding: 0.95rem 1rem;
+      border-radius: 18px;
+      background: rgba(16, 34, 77, 0.04);
+      border: 1px solid rgba(16, 34, 77, 0.06);
+    }
+
+    footer {
+      padding: 2rem 0 3.2rem;
+    }
+
+    .footer-grid {
+      align-items: start;
+    }
+
+    .footer-brand {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .footer-brand strong {
+      font-size: 1.18rem;
+    }
+
+    .footer-brand p,
+    .footer-links p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.65rem;
+      align-items: center;
+    }
+
+    .footer-links a {
+      padding: 0.72rem 0.95rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(15, 32, 66, 0.08);
+      font-weight: 700;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .accent-angular {
+      background: linear-gradient(135deg, rgba(221, 0, 49, 0.24), rgba(221, 0, 49, 0.08));
+    }
+
+    .accent-react {
+      background: linear-gradient(135deg, rgba(30, 157, 255, 0.22), rgba(30, 157, 255, 0.08));
+    }
+
+    .accent-vue {
+      background: linear-gradient(135deg, rgba(54, 164, 111, 0.24), rgba(54, 164, 111, 0.08));
+    }
+
+    .accent-vanilla {
+      background: linear-gradient(135deg, rgba(199, 135, 0, 0.2), rgba(199, 135, 0, 0.08));
+    }
+
+    .badge-angular,
+    .tag-angular,
+    .primary-angular {
+      background: linear-gradient(135deg, #9b0c2c 0%, var(--angular) 100%);
+    }
+
+    .badge-react,
+    .tag-react,
+    .primary-react {
+      background: linear-gradient(135deg, #13628d 0%, var(--react) 100%);
+    }
+
+    .badge-vue,
+    .tag-vue,
+    .primary-vue {
+      background: linear-gradient(135deg, #0f6a4a 0%, var(--vue) 100%);
+    }
+
+    .badge-vanilla,
+    .tag-vanilla,
+    .primary-vanilla {
+      background: linear-gradient(135deg, #965f00 0%, var(--vanilla) 100%);
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .spotlight-card,
+    .value-card,
+    .impact-card,
+    .package-card,
+    .quote-card,
+    .footnote-card {
+      animation: fade-up 700ms ease both;
+    }
+
+    .hero-panel {
+      animation-delay: 120ms;
+    }
+
+    .spotlight-card {
+      animation-delay: 140ms;
+    }
+
+    .package-card:nth-child(2n) {
+      animation-delay: 80ms;
+    }
+
+    .package-card:nth-child(3n) {
+      animation-delay: 140ms;
+    }
+
+    @media (max-width: 1120px) {
+      .topbar-inner,
+      .hero-grid,
+      .spotlight-layout,
+      .spotlight-body,
+      .mission-layout,
+      .impact-layout,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        justify-items: start;
+      }
+
+      .framework-nav,
+      .resource-links,
+      .footer-links {
+        justify-content: flex-start;
+      }
+
+      .hero-copy h1 {
+        max-width: 14ch;
+      }
+
+      .package-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(var(--max-width), calc(100% - 1.1rem));
+      }
+
+      .hero {
+        padding-top: 3rem;
+      }
+
+      .hero-highlights,
+      .panel-metrics,
+      .values-grid,
+      .impact-grid,
+      .package-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .spotlight-card,
+      .value-card,
+      .impact-card,
+      .quote-card,
+      .footnote-card,
+      .package-card {
+        border-radius: 24px;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(2.5rem, 11vw, 4rem);
+      }
+
+      .spotlight-head {
+        flex-direction: column;
+      }
+
+      .framework-pill {
+        width: calc(50% - 0.4rem);
+        justify-content: center;
+      }
+
+      .resource-link,
+      .hero-actions a,
+      .card-actions a,
+      .footer-links a {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Meu site</h1>
-  <p>Funcionando no GitHub Pages.</p>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#home" aria-label="Alexandro.Net home">
+          <span class="brand-mark" aria-hidden="true">A</span>
+          <span class="brand-copy">
+            <strong>Alexandro.Net</strong>
+            <span>ReviveJS · modern open source continuity</span>
+          </span>
+        </a>
+
+        <nav class="framework-nav" aria-label="Framework navigation">
+          <button class="framework-pill is-active" type="button" data-filter="angular">
+            <span>Angular</span>
+            <span class="pill-count" data-count-for="angular">4</span>
+          </button>
+          <button class="framework-pill" type="button" data-filter="react">
+            <span>React</span>
+            <span class="pill-count" data-count-for="react">2</span>
+          </button>
+          <button class="framework-pill" type="button" data-filter="vue">
+            <span>Vue</span>
+            <span class="pill-count" data-count-for="vue">1</span>
+          </button>
+          <button class="framework-pill" type="button" data-filter="vanilla">
+            <span>Vanilla JS</span>
+            <span class="pill-count" data-count-for="vanilla">2</span>
+          </button>
+        </nav>
+
+        <div class="resource-links">
+          <a class="resource-link" href="https://github.com/alexandroit" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="resource-link" href="https://www.npmjs.com/~aleinfoit" target="_blank" rel="noreferrer">npm</a>
+          <a class="resource-link" href="https://alexandro.net" target="_blank" rel="noreferrer">Alexandro.Net</a>
+          <a class="resource-link" href="https://www.linkedin.com/in/aleinfo/" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="container hero-grid">
+          <article class="hero-copy">
+            <span class="eyebrow">ReviveJS initiative</span>
+            <h1>Open-source libraries revived for modern product teams.</h1>
+            <p>
+              ReviveJS helps companies move forward without throwing away trusted frontend infrastructure.
+              The work focuses on reviving libraries that stopped evolving, building the new packages the market still needs,
+              and adapting proven ideas across Angular, React, Vue, and Vanilla JS so teams can modernize with continuity.
+            </p>
+
+            <div class="hero-actions">
+              <a class="primary" href="#packages">Explore the portfolio</a>
+              <a class="secondary" href="https://github.com/alexandroit" target="_blank" rel="noreferrer">Open GitHub profile</a>
+            </div>
+
+            <div class="hero-highlights">
+              <div class="highlight-card">
+                <strong>9 maintained packages</strong>
+                <span>UI components, charts, dates, data tables, and browser utilities.</span>
+              </div>
+              <div class="highlight-card">
+                <strong>4 frontend ecosystems</strong>
+                <span>Angular, React, Vue, and Vanilla JS with a portability mindset.</span>
+              </div>
+              <div class="highlight-card">
+                <strong>Faster modernization</strong>
+                <span>Keep teams shipping while dependencies catch up with current frameworks.</span>
+              </div>
+            </div>
+          </article>
+
+          <aside class="hero-panel" aria-label="Live portfolio metrics">
+            <span class="metric-label">Live npm signal</span>
+            <h2>Combined downloads across the ReviveJS portfolio.</h2>
+            <p>
+              This counter aggregates live npm totals from the current package lineup and updates in the browser.
+            </p>
+
+            <div class="counter-card">
+              <span class="counter-value" data-total-downloads aria-live="polite">3,032+</span>
+              <span>Total portfolio downloads</span>
+              <p class="counter-note">
+                Newly published packages can take a short time to appear in npm download indexes.
+              </p>
+            </div>
+
+            <div class="panel-metrics">
+              <div class="panel-metric">
+                <span class="metric-label">Packages</span>
+                <strong data-package-count>9</strong>
+              </div>
+              <div class="panel-metric">
+                <span class="metric-label">Ecosystems</span>
+                <strong>4</strong>
+              </div>
+              <div class="panel-metric">
+                <span class="metric-label">Monthly pace</span>
+                <strong data-monthly-downloads>3,032</strong>
+              </div>
+              <div class="panel-metric">
+                <span class="metric-label">Latest release</span>
+                <strong data-latest-release>Loading</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="ecosystems">
+        <div class="container">
+          <div class="section-heading">
+            <span>Technology focus</span>
+            <h2>A framework-aware portfolio, not a one-framework story.</h2>
+            <p>
+              Use the ecosystem menu to spotlight the packages most relevant to a specific stack. The full catalog remains visible below,
+              while the active framework gets prioritized with a focused story and package list.
+            </p>
+          </div>
+
+          <div class="spotlight-layout">
+            <article class="spotlight-card" id="spotlightCard" aria-live="polite"></article>
+
+            <div class="spotlight-side">
+              <article class="value-card">
+                <span class="inline-label">About</span>
+                <h3>Revive what the market still depends on.</h3>
+                <p>
+                  The project exists to keep important libraries useful after original maintenance slows down,
+                  so businesses do not have to choose between outdated dependencies and expensive rewrites.
+                </p>
+              </article>
+
+              <article class="value-card">
+                <span class="inline-label">Build</span>
+                <h3>Create the libraries teams still need.</h3>
+                <p>
+                  ReviveJS is not limited to maintenance. It also creates modern packages where practical product teams
+                  still face gaps in frontend infrastructure.
+                </p>
+              </article>
+
+              <article class="value-card">
+                <span class="inline-label">Port</span>
+                <h3>Translate proven ideas across ecosystems.</h3>
+                <p>
+                  When a useful library exists only in React, the same value can be adapted for Angular, Vue, or Vanilla JS
+                  so teams are not locked into a single framework culture.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="packages">
+        <div class="container">
+          <div class="package-toolbar">
+            <div class="section-heading">
+              <span>Package portfolio</span>
+              <h2>Libraries designed to reduce rewrite risk.</h2>
+              <p>
+                Each package card includes its ecosystem, live npm signals, and direct links to documentation, source code, and the npm package page.
+              </p>
+            </div>
+            <div class="package-status" id="packageStatus">Highlighting Angular packages across the full catalog.</div>
+          </div>
+
+          <div class="package-grid" id="packageGrid"></div>
+          <noscript>Your browser needs JavaScript enabled to render the live package catalog and npm counters.</noscript>
+        </div>
+      </section>
+
+      <section class="section" id="mission">
+        <div class="container mission-layout">
+          <div class="section-heading">
+            <span>Why it matters</span>
+            <h2>Open-source continuity has real business value.</h2>
+            <p>
+              For companies running production frontend systems, abandoned libraries create cost, delay, compatibility pressure, and avoidable operational risk.
+              ReviveJS turns that risk into a modernization path by preserving familiar developer experience while aligning packages with current frameworks and tooling.
+            </p>
+          </div>
+
+          <div class="values-grid">
+            <article class="value-card">
+              <span class="inline-label">Continuity</span>
+              <h3>Preserve working product investments.</h3>
+              <p>
+                Teams can continue using proven patterns instead of replacing entire UI workflows because a package stopped receiving updates.
+              </p>
+            </article>
+
+            <article class="value-card">
+              <span class="inline-label">Compatibility</span>
+              <h3>Support current framework releases.</h3>
+              <p>
+                Maintaining compatibility with modern Angular, React, and Vue versions helps businesses upgrade platforms with less friction.
+              </p>
+            </article>
+
+            <article class="value-card">
+              <span class="inline-label">Portability</span>
+              <h3>Spread value beyond one community.</h3>
+              <p>
+                Useful ideas should not stay trapped in a single ecosystem. Cross-framework adaptation expands access to proven solutions.
+              </p>
+            </article>
+
+            <article class="value-card">
+              <span class="inline-label">Efficiency</span>
+              <h3>Reduce the cost of forced rewrites.</h3>
+              <p>
+                Revived packages lower migration pressure and protect engineering time that can stay focused on product outcomes.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="impact">
+        <div class="container impact-layout">
+          <article class="quote-card">
+            <span class="inline-label">National-scale relevance</span>
+            <span class="quote-line">Modernized libraries help companies upgrade faster, keep legacy applications usable, and avoid expensive dependency dead ends.</span>
+            <p>
+              That combination matters to organizations maintaining large internal systems, customer-facing products, and long-lived enterprise platforms.
+              The public benefit comes from stronger digital continuity, reduced technical debt pressure, and broader access to modernized tooling.
+            </p>
+          </article>
+
+          <div class="impact-grid">
+            <article class="impact-card">
+              <span class="inline-label">For engineering teams</span>
+              <h3>Less disruption during upgrades.</h3>
+              <p>
+                Current package support shortens the gap between framework releases and production adoption.
+              </p>
+            </article>
+
+            <article class="impact-card">
+              <span class="inline-label">For product leaders</span>
+              <h3>More predictability in frontend roadmaps.</h3>
+              <p>
+                Revived components reduce surprise costs tied to broken dependencies and forced replacement projects.
+              </p>
+            </article>
+
+            <article class="impact-card">
+              <span class="inline-label">For the ecosystem</span>
+              <h3>More reusable infrastructure.</h3>
+              <p>
+                Reintroducing maintained packages strengthens the open-source supply chain that countless teams rely on.
+              </p>
+            </article>
+
+            <article class="impact-card">
+              <span class="inline-label">For future work</span>
+              <h3>A platform for new libraries.</h3>
+              <p>
+                ReviveJS also creates room to launch new packages where the market still needs stable, framework-aware tooling.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="notes">
+        <div class="container mission-layout">
+          <article class="footnote-card">
+            <span class="inline-label">Operating model</span>
+            <div class="footnote-list">
+              <div class="footnote-item">
+                <strong>1. Revive</strong>
+                <p>Take unmaintained packages and bring them up to date with current framework majors, packaging standards, and documentation.</p>
+              </div>
+              <div class="footnote-item">
+                <strong>2. Extend</strong>
+                <p>Fill market gaps with practical libraries that engineering teams can adopt quickly.</p>
+              </div>
+              <div class="footnote-item">
+                <strong>3. Adapt</strong>
+                <p>Move proven concepts across Angular, React, Vue, and Vanilla JS whenever that creates real utility for teams.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="footnote-card">
+            <span class="inline-label">Reference links</span>
+            <div class="footnote-list">
+              <div class="footnote-item">
+                <strong>GitHub</strong>
+                <p><a href="https://github.com/alexandroit" target="_blank" rel="noreferrer">github.com/alexandroit</a></p>
+              </div>
+              <div class="footnote-item">
+                <strong>npm publisher</strong>
+                <p><a href="https://www.npmjs.com/~aleinfoit" target="_blank" rel="noreferrer">npmjs.com/~aleinfoit</a></p>
+              </div>
+              <div class="footnote-item">
+                <strong>Official website</strong>
+                <p><a href="https://alexandro.net" target="_blank" rel="noreferrer">alexandro.net</a></p>
+              </div>
+              <div class="footnote-item">
+                <strong>LinkedIn</strong>
+                <p><a href="https://www.linkedin.com/in/aleinfo/" target="_blank" rel="noreferrer">linkedin.com/in/aleinfo</a></p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <strong>Alexandro.Net</strong>
+          <p>
+            ReviveJS is a frontend modernization portfolio centered on package continuity, framework portability, and practical open-source infrastructure.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#home">Top</a>
+          <a href="#ecosystems">Frameworks</a>
+          <a href="#packages">Packages</a>
+          <a href="#impact">Impact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const packageCatalog = [
+      {
+        key: "@revivejs/angular2-multiselect-dropdown",
+        title: "Angular 21 Multiselect Dropdown",
+        ecosystem: "angular",
+        kind: "multiselect",
+        summary: "Search, grouping, custom templates, lazy loading, and forms support for modern Angular releases.",
+        fallbackVersion: "13.0.6",
+        fallbackTotal: 1200,
+        fallbackMonthly: 1200,
+        docsUrl: "https://alexandroit.github.io/angular2-multiselect-dropdown/",
+        npmUrl: "https://www.npmjs.com/package/@revivejs/angular2-multiselect-dropdown"
+      },
+      {
+        key: "@revivejs/ng-multiselect-dropdown",
+        title: "NG Multiselect Dropdown",
+        ecosystem: "angular",
+        kind: "multiselect",
+        summary: "Maintained multi-select dropdown with Angular 16 through 21 support and versioned docs.",
+        fallbackVersion: "6.0.3",
+        fallbackTotal: 631,
+        fallbackMonthly: 631,
+        docsUrl: "https://alexandroit.github.io/ng-multiselect-dropdown/",
+        npmUrl: "https://www.npmjs.com/package/@revivejs/ng-multiselect-dropdown"
+      },
+      {
+        key: "@revivejs/angular-data-table-component",
+        title: "Angular Data Table Component",
+        ecosystem: "angular",
+        kind: "table",
+        summary: "Modern Angular data table with sorting, selection, expandable rows, pagination, and versioned documentation.",
+        fallbackVersion: "21.0.0",
+        fallbackTotal: 0,
+        fallbackMonthly: 0,
+        docsUrl: "https://alexandroit.github.io/angular-data-table-component/",
+        npmUrl: "https://www.npmjs.com/package/@revivejs/angular-data-table-component"
+      },
+      {
+        key: "@revivejs/angular-highcharts",
+        title: "Angular Highcharts",
+        ecosystem: "angular",
+        kind: "chart",
+        summary: "Angular wrapper components for Highcharts, Highstock, Highmaps, zAxis, and colorAxis integrations.",
+        fallbackVersion: "21.0.1",
+        fallbackTotal: 0,
+        fallbackMonthly: 0,
+        docsUrl: "https://alexandroit.github.io/angular-highcharts/",
+        npmUrl: "https://www.npmjs.com/package/@revivejs/angular-highcharts"
+      },
+      {
+        key: "@revivejs/react-data-table-component",
+        title: "React Data Table Component",
+        ecosystem: "react",
+        kind: "table",
+        summary: "Maintained React 19 data table with sorting, selection, expansion, pagination, theming, and docs.",
+        fallbackVersion: "9.1.1",
+        fallbackTotal: 393,
+        fallbackMonthly: 393,
+        docsUrl: "https://alexandroit.github.io/react-data-table-component/",
+        npmUrl: "https://www.npmjs.com/package/@revivejs/react-data-table-component"
+      },
+      {
+        key: "@revivejs/react-highcharts",
+        title: "React Highcharts",
+        ecosystem: "react",
+        kind: "chart",
+        summary: "Thin React 19 wrapper for Highcharts with demos and a clean, framework-friendly API.",
+        fallbackVersion: "19.0.1",
+        fallbackTotal: 0,
+        fallbackMonthly: 0,
+        docsUrl: "https://alexandroit.github.io/react-highcharts/",
+        npmUrl: "https://www.npmjs.com/package/@revivejs/react-highcharts"
+      },
+      {
+        key: "@revivejs/vue-highcharts",
+        title: "Vue Highcharts",
+        ecosystem: "vue",
+        kind: "chart",
+        summary: "Vue 3 chart wrapper that carries proven Highcharts integrations into the Vue ecosystem.",
+        fallbackVersion: "3.0.0",
+        fallbackTotal: 0,
+        fallbackMonthly: 0,
+        docsUrl: "https://alexandroit.github.io/vue-highcharts/",
+        npmUrl: "https://www.npmjs.com/package/@revivejs/vue-highcharts"
+      },
+      {
+        key: "@revivejs/moment",
+        title: "Maintained Moment.js Fork",
+        ecosystem: "vanilla",
+        kind: "date",
+        summary: "Moment.js 2.30.x maintenance line for parsing, validating, manipulating, and formatting dates.",
+        fallbackVersion: "2.30.5",
+        fallbackTotal: 296,
+        fallbackMonthly: 296,
+        docsUrl: "https://alexandroit.github.io/moment/",
+        npmUrl: "https://www.npmjs.com/package/@revivejs/moment"
+      },
+      {
+        key: "@revivejs/resize-observer",
+        title: "ResizeObserver Polyfill",
+        ecosystem: "vanilla",
+        kind: "observer",
+        summary: "ResizeObserver polyfill with support for newer box size options from the evolving web platform spec.",
+        fallbackVersion: "4.0.5",
+        fallbackTotal: 512,
+        fallbackMonthly: 512,
+        docsUrl: "https://alexandroit.github.io/resize-observer/",
+        npmUrl: "https://www.npmjs.com/package/@revivejs/resize-observer"
+      }
+    ];
+
+    const ecosystemMeta = {
+      angular: {
+        label: "Angular",
+        description: "Maintain legacy-friendly Angular components while keeping them compatible with current majors, packaging, and developer expectations.",
+        title: "Angular continuity for long-lived enterprise interfaces",
+        bullets: [
+          "Revived UI components that preserve familiar behavior",
+          "Versioned compatibility for modern Angular lines",
+          "Upgrades without replacing proven product flows"
+        ]
+      },
+      react: {
+        label: "React",
+        description: "Bring high-value data and visualization patterns into modern React with maintained wrappers and product-ready documentation.",
+        title: "React packages focused on data-heavy product surfaces",
+        bullets: [
+          "React 19-ready packages for data grids and charts",
+          "Minimal wrappers with pragmatic, documented APIs",
+          "Useful patterns that stay current with the React toolchain"
+        ]
+      },
+      vue: {
+        label: "Vue",
+        description: "Extend proven chart integrations to Vue so teams can adopt the same capabilities without leaving their preferred ecosystem.",
+        title: "Vue support built from cross-framework adaptation",
+        bullets: [
+          "Vue 3 access to proven chart workflows",
+          "Practical portability of existing ideas",
+          "Broader reach for frontend teams outside React and Angular"
+        ]
+      },
+      vanilla: {
+        label: "Vanilla JS",
+        description: "Keep foundational browser and date utilities alive for teams that need framework-independent compatibility.",
+        title: "Core web utilities that outlive framework cycles",
+        bullets: [
+          "Framework-agnostic libraries for durable browser support",
+          "Maintained utilities for date handling and layout observation",
+          "A stronger base layer for modern frontend applications"
+        ]
+      }
+    };
+
+    const ecosystemCounts = packageCatalog.reduce((counts, item) => {
+      counts[item.ecosystem] = (counts[item.ecosystem] || 0) + 1;
+      return counts;
+    }, {});
+
+    const fallbackTotals = packageCatalog.reduce((totals, item) => {
+      totals.downloads += item.fallbackTotal || 0;
+      totals.monthly += item.fallbackMonthly || 0;
+      return totals;
+    }, { downloads: 0, monthly: 0 });
+
+    const statsStore = new Map();
+    const state = {
+      active: "angular",
+      totals: {
+        downloads: fallbackTotals.downloads,
+        monthly: fallbackTotals.monthly,
+        latestPublished: null
+      }
+    };
+
+    const spotlightCard = document.getElementById("spotlightCard");
+    const packageGrid = document.getElementById("packageGrid");
+    const packageStatus = document.getElementById("packageStatus");
+    const totalDownloadsNode = document.querySelector("[data-total-downloads]");
+    const monthlyDownloadsNode = document.querySelector("[data-monthly-downloads]");
+    const latestReleaseNode = document.querySelector("[data-latest-release]");
+    const packageCountNode = document.querySelector("[data-package-count]");
+    const frameworkButtons = Array.from(document.querySelectorAll(".framework-pill"));
+
+    const numberFormatter = new Intl.NumberFormat("en-US");
+    const dateFormatter = new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    });
+
+    function parseShieldsCount(value) {
+      if (!value || /too new|not found/i.test(value)) {
+        return 0;
+      }
+
+      const normalized = value.toLowerCase().replace("/month", "").trim();
+      const match = normalized.match(/^([0-9]+(?:\.[0-9]+)?)([kmb])?$/);
+
+      if (!match) {
+        const numeric = Number(normalized.replace(/[^0-9.]/g, ""));
+        return Number.isFinite(numeric) ? numeric : 0;
+      }
+
+      const multipliers = {
+        k: 1e3,
+        m: 1e6,
+        b: 1e9
+      };
+
+      return Math.round(Number(match[1]) * (multipliers[match[2]] || 1));
+    }
+
+    function formatCount(value) {
+      return numberFormatter.format(Math.round(value || 0));
+    }
+
+    function formatDate(value) {
+      if (!value) {
+        return "Recently updated";
+      }
+
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) {
+        return "Recently updated";
+      }
+
+      return dateFormatter.format(date);
+    }
+
+    function normalizeRepositoryUrl(url) {
+      if (!url) {
+        return "";
+      }
+
+      return url.replace(/^git\+/, "").replace(/\.git$/, "");
+    }
+
+    function accentClass(ecosystem) {
+      return `accent-${ecosystem}`;
+    }
+
+    function badgeClass(ecosystem) {
+      return `badge-${ecosystem}`;
+    }
+
+    function primaryLinkClass(ecosystem) {
+      return `primary-${ecosystem}`;
+    }
+
+    function spotlightTagClass(ecosystem) {
+      return `tag-${ecosystem}`;
+    }
+
+    function buildPreviewMarkup(pkg, isLarge = false) {
+      const outerClass = isLarge ? "spotlight-preview" : `package-preview ${accentClass(pkg.ecosystem)}`;
+      const shellClass = isLarge ? `spotlight-preview ${accentClass(pkg.ecosystem)}` : `package-preview ${accentClass(pkg.ecosystem)}`;
+      const label = ecosystemMeta[pkg.ecosystem].label;
+
+      const multiselectPreview = `
+        <div class="${shellClass}">
+          <div class="preview-inner">
+            <div class="preview-toolbar">
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+            </div>
+            <div class="preview-shell">
+              <span class="preview-pill">${label}</span>
+              <div class="preview-select">
+                <span>Select items</span>
+                <span>&#9662;</span>
+              </div>
+              <div class="preview-chip-row">
+                <span class="preview-chip"></span>
+                <span class="preview-chip"></span>
+                <span class="preview-chip"></span>
+              </div>
+              <div class="preview-options">
+                <div class="preview-option">
+                  <span class="preview-checkbox"></span>
+                  <span class="preview-line medium"></span>
+                </div>
+                <div class="preview-option">
+                  <span class="preview-checkbox"></span>
+                  <span class="preview-line short"></span>
+                </div>
+                <div class="preview-option">
+                  <span class="preview-checkbox"></span>
+                  <span class="preview-line medium"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const tablePreview = `
+        <div class="${shellClass}">
+          <div class="preview-inner">
+            <div class="preview-toolbar">
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+            </div>
+            <div class="preview-shell">
+              <span class="preview-pill">${label}</span>
+              <div class="preview-table">
+                <div class="preview-table-head">
+                  <span class="preview-table-cell"></span>
+                  <span class="preview-table-cell"></span>
+                  <span class="preview-table-cell"></span>
+                </div>
+                <div class="preview-table-row">
+                  <span class="preview-table-cell"></span>
+                  <span class="preview-table-cell"></span>
+                  <span class="preview-table-cell"></span>
+                </div>
+                <div class="preview-table-row">
+                  <span class="preview-table-cell"></span>
+                  <span class="preview-table-cell"></span>
+                  <span class="preview-table-cell"></span>
+                </div>
+                <div class="preview-table-row">
+                  <span class="preview-table-cell"></span>
+                  <span class="preview-table-cell"></span>
+                  <span class="preview-table-cell"></span>
+                </div>
+              </div>
+              <div class="preview-row">
+                <span class="preview-chip"></span>
+                <span class="preview-chip"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const chartPreview = `
+        <div class="${shellClass}">
+          <div class="preview-inner">
+            <div class="preview-toolbar">
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+            </div>
+            <div class="preview-shell">
+              <span class="preview-pill">${label}</span>
+              <div class="preview-chart">
+                <div class="preview-row">
+                  <span class="preview-line medium"></span>
+                  <span class="preview-line short"></span>
+                </div>
+                <div class="preview-chart-area">
+                  <div class="preview-chart-line" aria-hidden="true">
+                    <svg viewBox="0 0 280 120" preserveAspectRatio="none">
+                      <path d="M10 96 C45 74, 74 70, 104 52 S165 28, 194 42 S245 74, 270 20" fill="none" stroke="rgba(16,34,77,0.48)" stroke-width="4" stroke-linecap="round"></path>
+                    </svg>
+                  </div>
+                  <span class="preview-bar" style="height: 46%;"></span>
+                  <span class="preview-bar" style="height: 62%;"></span>
+                  <span class="preview-bar" style="height: 54%;"></span>
+                  <span class="preview-bar" style="height: 74%;"></span>
+                  <span class="preview-bar" style="height: 66%;"></span>
+                  <span class="preview-bar" style="height: 88%;"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const datePreview = `
+        <div class="${shellClass}">
+          <div class="preview-inner">
+            <div class="preview-toolbar">
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+            </div>
+            <div class="preview-shell">
+              <span class="preview-pill">${label}</span>
+              <div class="preview-row">
+                <span class="preview-chip"></span>
+                <span class="preview-chip"></span>
+              </div>
+              <div class="preview-calendar">
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell is-accent"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell is-accent"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+                <span class="calendar-cell"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const observerPreview = `
+        <div class="${shellClass}">
+          <div class="preview-inner">
+            <div class="preview-toolbar">
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+              <span class="preview-dot"></span>
+            </div>
+            <div class="preview-shell">
+              <span class="preview-pill">${label}</span>
+              <div class="observer-grid">
+                <span class="observer-box"></span>
+                <span class="observer-box" style="min-height: 7rem;"></span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-line medium"></span>
+                <span class="preview-line short"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      switch (pkg.kind) {
+        case "multiselect":
+          return multiselectPreview;
+        case "table":
+          return tablePreview;
+        case "chart":
+          return chartPreview;
+        case "date":
+          return datePreview;
+        case "observer":
+          return observerPreview;
+        default:
+          return `
+            <div class="${outerClass}">
+              <div class="preview-inner">
+                <div class="preview-toolbar">
+                  <span class="preview-dot"></span>
+                  <span class="preview-dot"></span>
+                  <span class="preview-dot"></span>
+                </div>
+                <div class="preview-shell">
+                  <span class="preview-pill">${label}</span>
+                  <span class="preview-line medium"></span>
+                  <span class="preview-line short"></span>
+                  <span class="preview-chip"></span>
+                </div>
+              </div>
+            </div>
+          `;
+      }
+    }
+
+    function packageMeta(pkg) {
+      return statsStore.get(pkg.key) || {
+        version: pkg.fallbackVersion || "Live",
+        publishedAt: null,
+        downloadsTotal: pkg.fallbackTotal || 0,
+        downloadsMonth: pkg.fallbackMonthly || 0,
+        downloadsLabel: (pkg.fallbackTotal || 0) ? `${formatCount(pkg.fallbackTotal)} downloads` : "Indexing",
+        monthlyLabel: (pkg.fallbackMonthly || 0) ? `${formatCount(pkg.fallbackMonthly)} / month` : "Indexing",
+        repositoryUrl: pkg.docsUrl,
+        description: pkg.summary
+      };
+    }
+
+    function renderSpotlight() {
+      const meta = ecosystemMeta[state.active];
+      const relevantPackages = packageCatalog.filter((pkg) => pkg.ecosystem === state.active);
+      const featured = relevantPackages[0];
+      const tagClass = spotlightTagClass(state.active);
+
+      spotlightCard.innerHTML = `
+        <div class="spotlight-head">
+          <div class="spotlight-copy">
+            <span class="spotlight-kicker">${meta.label} spotlight</span>
+            <h3>${meta.title}</h3>
+            <p>${meta.description}</p>
+          </div>
+          <span class="spotlight-tag ${tagClass}">${meta.label}</span>
+        </div>
+        <div class="spotlight-body">
+          ${buildPreviewMarkup(featured, true)}
+          <div class="spotlight-list">
+            ${relevantPackages.map((pkg) => {
+              const details = packageMeta(pkg);
+              return `
+                <article class="spotlight-item">
+                  <h4>${pkg.title}</h4>
+                  <p>${details.description || pkg.summary}</p>
+                  <div class="spotlight-meta">
+                    <span class="meta-chip">v${details.version}</span>
+                    <span class="meta-chip">${details.downloadsLabel}</span>
+                    <span class="meta-chip">${formatDate(details.publishedAt)}</span>
+                  </div>
+                </article>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPackageGrid() {
+      packageGrid.innerHTML = packageCatalog.map((pkg) => {
+        const details = packageMeta(pkg);
+        const isSelected = pkg.ecosystem === state.active;
+        const repoUrl = details.repositoryUrl || pkg.docsUrl;
+        const docsLabel = pkg.docsUrl ? "Documentation" : "Project";
+
+        return `
+          <article class="package-card ${isSelected ? "is-selected" : "is-dimmed"}" data-ecosystem="${pkg.ecosystem}">
+            ${buildPreviewMarkup(pkg)}
+            <div class="package-badge ${badgeClass(pkg.ecosystem)}">${ecosystemMeta[pkg.ecosystem].label}</div>
+            <div>
+              <h3>${pkg.title}</h3>
+              <p>${details.description || pkg.summary}</p>
+            </div>
+            <div class="package-meta">
+              <span class="package-stat">v${details.version}</span>
+              <span class="package-stat">${details.downloadsLabel}</span>
+              <span class="package-stat is-soft">${formatDate(details.publishedAt)}</span>
+            </div>
+            <div class="card-actions">
+              <a class="primary-link ${primaryLinkClass(pkg.ecosystem)}" href="${pkg.docsUrl}" target="_blank" rel="noreferrer">${docsLabel}</a>
+              <a href="${pkg.npmUrl}" target="_blank" rel="noreferrer">npm</a>
+              <a href="${repoUrl}" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      packageStatus.textContent = `Highlighting ${ecosystemMeta[state.active].label} packages across the full catalog.`;
+    }
+
+    function updatePillCounts() {
+      Object.entries(ecosystemCounts).forEach(([ecosystem, count]) => {
+        const node = document.querySelector(`[data-count-for="${ecosystem}"]`);
+        if (node) {
+          node.textContent = count;
+        }
+      });
+    }
+
+    function updateButtons() {
+      frameworkButtons.forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.filter === state.active);
+      });
+    }
+
+    function animateValue(node, target) {
+      if (!node) {
+        return;
+      }
+      node.textContent = `${formatCount(target)}+`;
+    }
+
+    function updateAggregateMetrics() {
+      const values = Array.from(statsStore.values());
+      const totalDownloads = values.reduce((sum, item) => sum + (item.downloadsTotal || 0), 0);
+      const monthlyDownloads = values.reduce((sum, item) => sum + (item.downloadsMonth || 0), 0);
+      const latestDates = values
+        .map((item) => item.publishedAt)
+        .filter(Boolean)
+        .map((value) => new Date(value))
+        .filter((date) => !Number.isNaN(date.getTime()))
+        .sort((a, b) => b.getTime() - a.getTime());
+
+      state.totals.downloads = Math.max(totalDownloads || 0, fallbackTotals.downloads, state.totals.downloads || 0);
+      state.totals.monthly = Math.max(monthlyDownloads || 0, fallbackTotals.monthly, state.totals.monthly || 0);
+      state.totals.latestPublished = latestDates[0] ? latestDates[0].toISOString() : null;
+
+      animateValue(totalDownloadsNode, state.totals.downloads);
+
+      if (monthlyDownloadsNode) {
+        monthlyDownloadsNode.textContent = formatCount(state.totals.monthly);
+      }
+
+      if (packageCountNode) {
+        packageCountNode.textContent = String(packageCatalog.length);
+      }
+
+      if (latestReleaseNode) {
+        latestReleaseNode.textContent = state.totals.latestPublished ? formatDate(state.totals.latestPublished) : "Live";
+      }
+    }
+
+    async function fetchPackageDetails(pkg) {
+      const encoded = encodeURIComponent(pkg.key);
+      const registryUrl = `https://registry.npmjs.org/${encoded}`;
+      const totalUrl = `https://img.shields.io/npm/dt/${encoded}.json`;
+      const monthlyUrl = `https://img.shields.io/npm/dm/${encoded}.json`;
+
+      const [registryResponse, totalResponse, monthlyResponse] = await Promise.all([
+        fetch(registryUrl),
+        fetch(totalUrl),
+        fetch(monthlyUrl)
+      ]);
+
+      if (!registryResponse.ok) {
+        throw new Error(`Registry request failed for ${pkg.key}`);
+      }
+
+      const registry = await registryResponse.json();
+      const totalJson = totalResponse.ok ? await totalResponse.json() : { value: "0" };
+      const monthlyJson = monthlyResponse.ok ? await monthlyResponse.json() : { value: "0" };
+      const version = registry["dist-tags"] && registry["dist-tags"].latest ? registry["dist-tags"].latest : "latest";
+      const latestMeta = registry.versions && registry.versions[version] ? registry.versions[version] : {};
+
+      const downloadsTotal = Math.max(parseShieldsCount(totalJson.value), pkg.fallbackTotal || 0);
+      const downloadsMonth = Math.max(parseShieldsCount(monthlyJson.value), pkg.fallbackMonthly || 0);
+
+      return {
+        version,
+        publishedAt: registry.time ? registry.time[version] : null,
+        downloadsTotal,
+        downloadsMonth,
+        downloadsLabel: downloadsTotal ? `${formatCount(downloadsTotal)} downloads` : "Indexing",
+        monthlyLabel: downloadsMonth ? `${formatCount(downloadsMonth)} / month` : "Indexing",
+        repositoryUrl: normalizeRepositoryUrl(
+          latestMeta.repository && latestMeta.repository.url
+            ? latestMeta.repository.url
+            : registry.repository && registry.repository.url
+              ? registry.repository.url
+              : ""
+        ),
+        description: latestMeta.description || registry.description || pkg.summary
+      };
+    }
+
+    async function hydratePackageStats() {
+      const tasks = packageCatalog.map(async (pkg) => {
+        try {
+          const details = await fetchPackageDetails(pkg);
+          statsStore.set(pkg.key, details);
+        } catch (error) {
+          statsStore.set(pkg.key, {
+            version: pkg.fallbackVersion || "Live",
+            publishedAt: null,
+            downloadsTotal: pkg.fallbackTotal || 0,
+            downloadsMonth: pkg.fallbackMonthly || 0,
+            downloadsLabel: (pkg.fallbackTotal || 0) ? `${formatCount(pkg.fallbackTotal)} downloads` : "Indexing",
+            monthlyLabel: (pkg.fallbackMonthly || 0) ? `${formatCount(pkg.fallbackMonthly)} / month` : "Indexing",
+            repositoryUrl: pkg.docsUrl,
+            description: pkg.summary
+          });
+        }
+      });
+
+      await Promise.all(tasks);
+      updateAggregateMetrics();
+      renderSpotlight();
+      renderPackageGrid();
+    }
+
+    function setActiveFramework(next) {
+      if (!ecosystemMeta[next]) {
+        return;
+      }
+
+      state.active = next;
+      updateButtons();
+      renderSpotlight();
+      renderPackageGrid();
+    }
+
+    frameworkButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setActiveFramework(button.dataset.filter);
+      });
+    });
+
+    updatePillCounts();
+    updateButtons();
+    renderSpotlight();
+    renderPackageGrid();
+    updateAggregateMetrics();
+    hydratePackageStats();
+  </script>
 </body>
 </html>
