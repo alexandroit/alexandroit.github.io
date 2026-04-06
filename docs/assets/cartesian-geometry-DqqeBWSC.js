@@ -1,0 +1,1 @@
+const n=$=>$.map((e,t)=>`${t===0?"M":"L"} ${e.x} ${e.y}`).join(" "),g=($,e,t)=>{if($.length===0)return"";if(t!=null&&t.length){const x=n($),L=[...t].reverse().map(c=>`L ${c.x} ${c.y}`).join(" ");return`${x} ${L} Z`}const h=$[0],s=$[$.length-1];return`${n($)} L ${s.x} ${e} L ${h.x} ${e} Z`};export{g as a,n as b};

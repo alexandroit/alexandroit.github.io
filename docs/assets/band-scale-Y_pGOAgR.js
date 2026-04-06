@@ -1,0 +1,1 @@
+const d=({domain:n,range:a,paddingInner:r=.18,paddingOuter:o=.08})=>{const[x,l]=a,u=Math.max(1,n.length),e=(l-x)/Math.max(1,u+o*2-r),s=e*(1-r),h=c=>{const t=x+e*(o+c);return{start:t,center:t+s/2,width:s}};return{domain:n,range:a,bandwidth:s,step:e,get:c=>{const t=Math.max(0,n.indexOf(c));return h(t)},at:h}};export{d as c};

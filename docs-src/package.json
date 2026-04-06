@@ -1,0 +1,20 @@
+{
+  "name": "@revivejs/infinity-charts-documentation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@revivejs/infinity-charts": "1.0.0",
+    "marked": "^15.0.12"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^5.4.19"
+  }
+}
