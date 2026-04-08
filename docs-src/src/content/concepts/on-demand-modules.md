@@ -19,7 +19,7 @@ That is why the ESM entry of Infinity Charts resolves built-in chart modules on 
 When you create a chart with a built-in type, the engine can fetch that chart implementation only when needed.
 
 ```ts
-import { createChart } from "@revivejs/infinity-charts";
+import { createChart } from "@stackline/infinity-charts";
 
 createChart({
   container: "#chart",
@@ -35,7 +35,7 @@ In an ESM-aware environment, the line chart implementation can be loaded only wh
 You can also preload specific families when you want to hide network latency ahead of time.
 
 ```ts
-import { loadChart, preloadCharts } from "@revivejs/infinity-charts";
+import { loadChart, preloadCharts } from "@stackline/infinity-charts";
 
 await loadChart("line");
 await preloadCharts(["bar", "donut", "gauge"]);

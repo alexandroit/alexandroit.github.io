@@ -13,7 +13,7 @@ Infinity Charts is designed to stay usable from plain JavaScript while remaining
 Install the core package from npm:
 
 ```bash
-npm install @revivejs/infinity-charts
+npm install @stackline/infinity-charts
 ```
 
 The package entry is the best path when you want the engine to load chart implementations on demand instead of shipping the whole chart catalog to the browser up front.
@@ -65,7 +65,7 @@ At minimum, you need:
 ```
 
 ```ts
-import { createChart } from "@revivejs/infinity-charts";
+import { createChart } from "@stackline/infinity-charts";
 
 createChart({
   container: document.querySelector("#chart"),
@@ -77,7 +77,7 @@ createChart({
 If you want to preload specific built-in charts before a route or dashboard opens, use:
 
 ```ts
-import { preloadCharts } from "@revivejs/infinity-charts";
+import { preloadCharts } from "@stackline/infinity-charts";
 
 await preloadCharts(["line", "bar", "donut"]);
 ```

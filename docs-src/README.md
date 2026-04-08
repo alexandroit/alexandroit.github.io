@@ -1,6 +1,6 @@
 # Infinity Charts Documentation
 
-Standalone documentation project for `@revivejs/infinity-charts`.
+Standalone documentation project for `@stackline/infinity-charts`.
 
 This project is intentionally separate from the core engine repository area so the documentation can evolve as its own product surface.
 

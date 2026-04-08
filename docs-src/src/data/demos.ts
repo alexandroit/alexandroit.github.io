@@ -3,7 +3,7 @@ import {
   type ChartPublicApi,
   type ThemeInput,
   type UserChartConfig,
-} from "@revivejs/infinity-charts";
+} from "@stackline/infinity-charts";
 
 export interface DemoDefinition {
   id: string;
@@ -199,7 +199,7 @@ export const demos: DemoDefinition[] = [
     id: "quick-start-line",
     title: "Quick start",
     description: "Minimal config with clean defaults.",
-    code: `import { createChart } from "@revivejs/infinity-charts";
+    code: `import { createChart } from "@stackline/infinity-charts";
 
 createChart({
   container: document.querySelector("#chart"),

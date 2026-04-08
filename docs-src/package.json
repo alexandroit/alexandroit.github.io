@@ -1,5 +1,5 @@
 {
-  "name": "@revivejs/infinity-charts-documentation",
+  "name": "@stackline/infinity-charts-documentation",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@revivejs/infinity-charts": "1.0.0",
+    "@stackline/infinity-charts": "1.0.0",
     "marked": "^15.0.12"
   },
   "devDependencies": {

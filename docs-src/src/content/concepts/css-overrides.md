@@ -117,7 +117,7 @@ That separation keeps business behavior in the chart config and product skinning
 ## Example
 
 ```ts
-import { createChart } from "@revivejs/infinity-charts";
+import { createChart } from "@stackline/infinity-charts";
 
 createChart({
   container: document.querySelector("#revenue-chart"),

@@ -12,7 +12,7 @@ The quickest way to understand Infinity Charts is to start with the simplest pos
 ## Minimal Example
 
 ```ts
-import { createChart } from "@revivejs/infinity-charts";
+import { createChart } from "@stackline/infinity-charts";
 
 const chart = createChart({
   container: document.querySelector("#chart"),
