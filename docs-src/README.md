@@ -1,32 +1,28 @@
-# Infinity Charts Documentation
+# Alexandroit Site Source
 
-Standalone documentation project for `@stackline/infinity-charts`.
+This folder generates the personal `alexandroit.github.io` site as a static editorial hub for the active Stackline portfolio.
 
-This project is intentionally separate from the core engine repository area so the documentation can evolve as its own product surface.
+## What it builds
 
-## Current scope
-
-The documentation now includes:
-
-- onboarding and quick-start pages for pure JavaScript and TypeScript usage
-- live chart guides for `line`, `area`, `stacked-area`, `bar`, `bar-3d`, `combo`, `sparkline`, `scatter`, `gauge`, `gauge-semicircle`, `radial-progress`, `thermometer`, `battery`, `pie`, and `donut`
-- architecture pages for rendering, realtime updates, themes, plugins, layout, data pipeline, and overlays
-- pattern guides for dashboards, monitoring, finance, and embedded widgets
-- live demos and a playground backed by the same core engine package
+- a magazine-style home page
+- a paginated archive of project posts
+- platform indexes for Vanilla JS, Angular, React, and Vue
+- dedicated project dossier pages with direct links to live docs, GitHub, and npm when available
+- a mirrored `docs/` output for GitHub Pages compatibility
 
 ## Scripts
 
 ```bash
-npm install
-npm run dev
+npm install --package-lock-only
 npm run build
+npm run preview
 ```
 
 ## Notes
 
-- During repository development, the docs app consumes the core package source through a Vite alias.
-- The site is focused on vanilla JavaScript / TypeScript usage, not framework wrappers.
-- Use `npm run preview` to test a production-like build locally.
+- the site is generated with plain Node.js from `build-site.mjs`
+- every route is emitted as real HTML for crawlers and link previews
+- the ad and analytics snippet is injected into every generated page head
 
 ## License
 

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Alexandroit</title>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b4442e" />
+      <stop offset="55%" stop-color="#d8a863" />
+      <stop offset="100%" stop-color="#265b84" />
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#g)" />
+  <path d="M22 42 31.5 20h3L44 42h-5.4l-1.8-4.7h-7.6L27.4 42Zm8.7-8.9h4.6L33 26.8Z" fill="#fff8f1" />
+</svg>
