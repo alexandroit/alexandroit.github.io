@@ -5,27 +5,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Page not found | Alexandroit</title>
-  <meta name="description" content="The page you requested is not available in the Alexandroit project journal." />
-  <meta name="keywords" content="open source javascript libraries, javascript ui libraries, typescript libraries, angular components, react components, vue components, frontend libraries, npm packages, github repositories, developer documentation, page not found, open source library archive" />
+  <meta name="description" content="Jump back to the home page, browse the platform indexes, or open the main archive." />
+  <meta name="keywords" content="open source javascript libraries, javascript ui libraries, typescript libraries, angular components, react components, vue components, frontend libraries, npm packages, github repositories, developer documentation, Page not found" />
   <meta name="author" content="Alexandro" />
   <meta name="creator" content="Alexandro" />
   <meta name="publisher" content="Alexandroit" />
   <meta name="robots" content="noindex,follow" />
   <meta name="theme-color" content="#f4efe6" />
   <meta property="og:title" content="Page not found | Alexandroit" />
-  <meta property="og:description" content="The page you requested is not available in the Alexandroit project journal." />
+  <meta property="og:description" content="Jump back to the home page, browse the platform indexes, or open the main archive." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Alexandroit" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="pt_BR" />
+  <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:url" content="https://alexandroit.github.io/404.html" />
   <meta property="og:image" content="https://alexandroit.github.io/assets/social-card.svg" />
   <meta property="og:image:alt" content="Page not found | Alexandroit" />
   
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Page not found | Alexandroit" />
-  <meta name="twitter:description" content="The page you requested is not available in the Alexandroit project journal." />
+  <meta name="twitter:description" content="Jump back to the home page, browse the platform indexes, or open the main archive." />
   <meta name="twitter:image" content="https://alexandroit.github.io/assets/social-card.svg" />
   <link rel="canonical" href="https://alexandroit.github.io/404.html" />
+  <link rel="alternate" hreflang="en" href="https://alexandroit.github.io/404.html" />
+  <link rel="alternate" hreflang="pt-BR" href="https://alexandroit.github.io/pt/404.html" />
+  <link rel="alternate" hreflang="fr-FR" href="https://alexandroit.github.io/fr/404.html" />
+  <link rel="alternate" hreflang="x-default" href="https://alexandroit.github.io/404.html" />
   
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -77,11 +83,12 @@
           <small>Open-source JavaScript, Angular, React, and Vue libraries.</small>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
         Menu
       </button>
-      <nav class="site-nav" id="site-nav" data-nav-root>
-        
+      <div class="site-tools" id="site-tools" data-nav-root>
+        <nav class="site-nav">
+          
               <a class="" href="./">
                 Home
               </a>
@@ -106,22 +113,61 @@
                 Vue
               </a>
             
-      </nav>
+        </nav>
+        
+    <div class="locale-switcher" aria-label="Languages">
+      
+            <a
+              class="locale-link is-active"
+              href="404.html"
+              lang="en"
+              hreflang="en"
+              aria-label="English"
+            >
+              <span class="locale-flag" aria-hidden="true">🇺🇸</span>
+              <span class="locale-code">EN</span>
+            </a>
+          
+            <a
+              class="locale-link "
+              href="pt/404.html"
+              lang="pt-BR"
+              hreflang="pt-BR"
+              aria-label="Português"
+            >
+              <span class="locale-flag" aria-hidden="true">🇧🇷</span>
+              <span class="locale-code">PT</span>
+            </a>
+          
+            <a
+              class="locale-link "
+              href="fr/404.html"
+              lang="fr-FR"
+              hreflang="fr-FR"
+              aria-label="Français"
+            >
+              <span class="locale-flag" aria-hidden="true">🇫🇷</span>
+              <span class="locale-code">FR</span>
+            </a>
+          
+    </div>
+  
+      </div>
     </div>
   </header>
 
     <main class="site-main">
       
-      <section class="platform-hero" data-reveal>
-        <span class="eyebrow">404</span>
-        <h1>That page is not in the archive.</h1>
-        <p>Jump back to the home page, browse the platform indexes, or open the main archive.</p>
-        <div class="hero-actions">
-          <a class="button-primary" href="./">Back home</a>
-          <a class="button-secondary" href="./archive/">Open archive</a>
-        </div>
-      </section>
-    
+        <section class="platform-hero" data-reveal>
+          <span class="eyebrow">404</span>
+          <h1>That page is not in the archive.</h1>
+          <p>Jump back to the home page, browse the platform indexes, or open the main archive.</p>
+          <div class="hero-actions">
+            <a class="button-primary" href="./">Back home</a>
+            <a class="button-secondary" href="archive/">Open archive</a>
+          </div>
+        </section>
+      
       <div class="content-shell">
         <div class="content-stack">
           
@@ -133,40 +179,37 @@
       <h3>Browse by platform</h3>
       <div class="sidebar-links">
         
-            <a class="is-active" href="./">
-              <span>All projects</span>
-              <strong>18</strong>
-            </a>
-          
-            <a class="" href="platform/vanilla/">
-              <span>Vanilla JS</span>
-              <strong>5</strong>
-            </a>
-          
-            <a class="" href="platform/angular/">
-              <span>Angular</span>
-              <strong>6</strong>
-            </a>
-          
-            <a class="" href="platform/react/">
-              <span>React</span>
-              <strong>4</strong>
-            </a>
-          
-            <a class="" href="platform/vue/">
-              <span>Vue</span>
-              <strong>3</strong>
-            </a>
-          
+              <a class="is-active" href="./">
+                <span>All projects</span>
+                <strong>18</strong>
+              </a>
+            
+              <a class="" href="platform/vanilla/">
+                <span>Vanilla JS</span>
+                <strong>5</strong>
+              </a>
+            
+              <a class="" href="platform/angular/">
+                <span>Angular</span>
+                <strong>6</strong>
+              </a>
+            
+              <a class="" href="platform/react/">
+                <span>React</span>
+                <strong>4</strong>
+              </a>
+            
+              <a class="" href="platform/vue/">
+                <span>Vue</span>
+                <strong>3</strong>
+              </a>
+            
       </div>
     </section>
     <section class="sidebar-card">
       <span class="eyebrow">What this site does</span>
       <h3>Docs first, hype last.</h3>
-      <p>
-        Every project entry is written like a post in a product journal: what the package covers, where the docs live,
-        which release family is current, and where to go next.
-      </p>
+      <p>Every project entry is written like a post in a product journal: what the package covers, where the docs live, which release family is current, and where to go next.</p>
     </section>
   </aside>
 
@@ -180,15 +223,9 @@
         <h2>Docs-first routing for the projects that are actually live.</h2>
       </div>
       <div class="footer-links">
-        <a href="archive/">Archive</a>
-        <a href="platform/vanilla/">Vanilla JS</a>
-        <a href="platform/angular/">Angular</a>
-        <a href="platform/react/">React</a>
-        <a href="platform/vue/">Vue</a>
+        <a href="archive/">Archive</a><a href="platform/vanilla/">Vanilla JS</a><a href="platform/angular/">Angular</a><a href="platform/react/">React</a><a href="platform/vue/">Vue</a>
       </div>
-      <p class="footer-note">
-        Built as a static editorial hub so every important route exists as real HTML for readers, crawlers, and link previews.
-      </p>
+      <p class="footer-note">Built as a static editorial hub so every important route exists as real HTML for readers, crawlers, and link previews.</p>
     </div>
   </footer>
   <script src="assets/site.js" defer></script>

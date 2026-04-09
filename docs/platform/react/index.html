@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>React libraries and components | Alexandroit</title>
   <meta name="description" content="React components and React libraries with version-aware docs, published packages, and a strong focus on practical product integration." />
-  <meta name="keywords" content="open source javascript libraries, javascript ui libraries, typescript libraries, angular components, react components, vue components, frontend libraries, npm packages, github repositories, developer documentation, React libraries, React packages, React documentation, React Loading, React Highcharts, React Data Table Component, React Multiselect Dropdown, Loading states, Charts, Tables, Forms" />
+  <meta name="keywords" content="open source javascript libraries, javascript ui libraries, typescript libraries, angular components, react components, vue components, frontend libraries, npm packages, github repositories, developer documentation, React libraries, React Loading, React Highcharts, React Data Table Component, React Multiselect Dropdown, Loading states, Charts, Tables, Forms" />
   <meta name="author" content="Alexandro" />
   <meta name="creator" content="Alexandro" />
   <meta name="publisher" content="Alexandroit" />
@@ -17,6 +17,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Alexandroit" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="pt_BR" />
+  <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:url" content="https://alexandroit.github.io/platform/react/" />
   <meta property="og:image" content="https://alexandroit.github.io/assets/social-card.svg" />
   <meta property="og:image:alt" content="React libraries and components | Alexandroit" />
@@ -26,6 +28,10 @@
   <meta name="twitter:description" content="React components and React libraries with version-aware docs, published packages, and a strong focus on practical product integration." />
   <meta name="twitter:image" content="https://alexandroit.github.io/assets/social-card.svg" />
   <link rel="canonical" href="https://alexandroit.github.io/platform/react/" />
+  <link rel="alternate" hreflang="en" href="https://alexandroit.github.io/platform/react/" />
+  <link rel="alternate" hreflang="pt-BR" href="https://alexandroit.github.io/pt/platform/react/" />
+  <link rel="alternate" hreflang="fr-FR" href="https://alexandroit.github.io/fr/platform/react/" />
+  <link rel="alternate" hreflang="x-default" href="https://alexandroit.github.io/platform/react/" />
   
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,7 +45,7 @@
   "name": "React libraries and components",
   "description": "React components and React libraries with version-aware docs, published packages, and a strong focus on practical product integration.",
   "url": "https://alexandroit.github.io/platform/react/",
-  "inLanguage": "en-US",
+  "inLanguage": "en",
   "isPartOf": {
     "@type": "WebSite",
     "name": "Alexandroit",
@@ -119,11 +125,12 @@
           <small>Open-source JavaScript, Angular, React, and Vue libraries.</small>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
         Menu
       </button>
-      <nav class="site-nav" id="site-nav" data-nav-root>
-        
+      <div class="site-tools" id="site-tools" data-nav-root>
+        <nav class="site-nav">
+          
               <a class="" href="../../">
                 Home
               </a>
@@ -148,7 +155,46 @@
                 Vue
               </a>
             
-      </nav>
+        </nav>
+        
+    <div class="locale-switcher" aria-label="Languages">
+      
+            <a
+              class="locale-link is-active"
+              href="./"
+              lang="en"
+              hreflang="en"
+              aria-label="English"
+            >
+              <span class="locale-flag" aria-hidden="true">🇺🇸</span>
+              <span class="locale-code">EN</span>
+            </a>
+          
+            <a
+              class="locale-link "
+              href="../../pt/platform/react/"
+              lang="pt-BR"
+              hreflang="pt-BR"
+              aria-label="Português"
+            >
+              <span class="locale-flag" aria-hidden="true">🇧🇷</span>
+              <span class="locale-code">PT</span>
+            </a>
+          
+            <a
+              class="locale-link "
+              href="../../fr/platform/react/"
+              lang="fr-FR"
+              hreflang="fr-FR"
+              aria-label="Français"
+            >
+              <span class="locale-flag" aria-hidden="true">🇫🇷</span>
+              <span class="locale-code">FR</span>
+            </a>
+          
+    </div>
+  
+      </div>
     </div>
   </header>
 
@@ -166,7 +212,7 @@
         <section class="section-block">
           <div class="story-grid">
             
-  <article class="story-card platform-react" data-reveal>
+  <article class="story-card  platform-react" data-reveal>
     <div class="story-meta">
       <span>React</span>
       <span>Loading states</span>
@@ -180,12 +226,12 @@
       <li>React families</li><li>Docs live</li><li>Published on npm</li>
     </ul>
     <div class="story-links">
-      <a class="action" href="https://alexandroit.github.io/react-loading/" target="_blank" rel="noreferrer">Open docs</a><a class="action" href="https://github.com/alexandroit/react-loading" target="_blank" rel="noreferrer">GitHub</a><a class="action" href="https://www.npmjs.com/package/@stackline/react-loading" target="_blank" rel="noreferrer">npm</a>
+      <a class="action" href="https://alexandroit.github.io/react-loading/" target="_blank" rel="noreferrer noopener">Open docs</a><a class="action" href="https://github.com/alexandroit/react-loading" target="_blank" rel="noreferrer noopener">GitHub</a><a class="action" href="https://www.npmjs.com/package/@stackline/react-loading" target="_blank" rel="noreferrer noopener">npm</a>
       <a class="story-readmore" href="../../projects/react-loading/">Read dossier</a>
     </div>
   </article>
 
-  <article class="story-card platform-react" data-reveal>
+  <article class="story-card  platform-react" data-reveal>
     <div class="story-meta">
       <span>React</span>
       <span>Charts</span>
@@ -199,12 +245,12 @@
       <li>Charts</li><li>Docs live</li><li>Published on npm</li>
     </ul>
     <div class="story-links">
-      <a class="action" href="https://alexandroit.github.io/react-highcharts/" target="_blank" rel="noreferrer">Open docs</a><a class="action" href="https://github.com/alexandroit/react-highcharts" target="_blank" rel="noreferrer">GitHub</a><a class="action" href="https://www.npmjs.com/package/@stackline/react-highcharts" target="_blank" rel="noreferrer">npm</a>
+      <a class="action" href="https://alexandroit.github.io/react-highcharts/" target="_blank" rel="noreferrer noopener">Open docs</a><a class="action" href="https://github.com/alexandroit/react-highcharts" target="_blank" rel="noreferrer noopener">GitHub</a><a class="action" href="https://www.npmjs.com/package/@stackline/react-highcharts" target="_blank" rel="noreferrer noopener">npm</a>
       <a class="story-readmore" href="../../projects/react-highcharts/">Read dossier</a>
     </div>
   </article>
 
-  <article class="story-card platform-react" data-reveal>
+  <article class="story-card  platform-react" data-reveal>
     <div class="story-meta">
       <span>React</span>
       <span>Tables</span>
@@ -218,12 +264,12 @@
       <li>Data table</li><li>Docs live</li><li>Published on npm</li>
     </ul>
     <div class="story-links">
-      <a class="action" href="https://alexandroit.github.io/react-data-table-component/" target="_blank" rel="noreferrer">Open docs</a><a class="action" href="https://github.com/alexandroit/react-data-table-component" target="_blank" rel="noreferrer">GitHub</a><a class="action" href="https://www.npmjs.com/package/@stackline/react-data-table-component" target="_blank" rel="noreferrer">npm</a>
+      <a class="action" href="https://alexandroit.github.io/react-data-table-component/" target="_blank" rel="noreferrer noopener">Open docs</a><a class="action" href="https://github.com/alexandroit/react-data-table-component" target="_blank" rel="noreferrer noopener">GitHub</a><a class="action" href="https://www.npmjs.com/package/@stackline/react-data-table-component" target="_blank" rel="noreferrer noopener">npm</a>
       <a class="story-readmore" href="../../projects/react-data-table-component/">Read dossier</a>
     </div>
   </article>
 
-  <article class="story-card platform-react" data-reveal>
+  <article class="story-card  platform-react" data-reveal>
     <div class="story-meta">
       <span>React</span>
       <span>Forms</span>
@@ -237,7 +283,7 @@
       <li>Form controls</li><li>Docs live</li><li>Published on npm</li>
     </ul>
     <div class="story-links">
-      <a class="action" href="https://alexandroit.github.io/react-multiselect-dropdown/" target="_blank" rel="noreferrer">Open docs</a><a class="action" href="https://github.com/alexandroit/react-multiselect-dropdown" target="_blank" rel="noreferrer">GitHub</a><a class="action" href="https://www.npmjs.com/package/@stackline/react-multiselect-dropdown" target="_blank" rel="noreferrer">npm</a>
+      <a class="action" href="https://alexandroit.github.io/react-multiselect-dropdown/" target="_blank" rel="noreferrer noopener">Open docs</a><a class="action" href="https://github.com/alexandroit/react-multiselect-dropdown" target="_blank" rel="noreferrer noopener">GitHub</a><a class="action" href="https://www.npmjs.com/package/@stackline/react-multiselect-dropdown" target="_blank" rel="noreferrer noopener">npm</a>
       <a class="story-readmore" href="../../projects/react-multiselect-dropdown/">Read dossier</a>
     </div>
   </article>
@@ -253,40 +299,37 @@
       <h3>Browse by platform</h3>
       <div class="sidebar-links">
         
-            <a class="" href="../../">
-              <span>All projects</span>
-              <strong>18</strong>
-            </a>
-          
-            <a class="" href="../vanilla/">
-              <span>Vanilla JS</span>
-              <strong>5</strong>
-            </a>
-          
-            <a class="" href="../angular/">
-              <span>Angular</span>
-              <strong>6</strong>
-            </a>
-          
-            <a class="is-active" href="./">
-              <span>React</span>
-              <strong>4</strong>
-            </a>
-          
-            <a class="" href="../vue/">
-              <span>Vue</span>
-              <strong>3</strong>
-            </a>
-          
+              <a class="" href="../../">
+                <span>All projects</span>
+                <strong>18</strong>
+              </a>
+            
+              <a class="" href="../vanilla/">
+                <span>Vanilla JS</span>
+                <strong>5</strong>
+              </a>
+            
+              <a class="" href="../angular/">
+                <span>Angular</span>
+                <strong>6</strong>
+              </a>
+            
+              <a class="is-active" href="./">
+                <span>React</span>
+                <strong>4</strong>
+              </a>
+            
+              <a class="" href="../vue/">
+                <span>Vue</span>
+                <strong>3</strong>
+              </a>
+            
       </div>
     </section>
     <section class="sidebar-card">
       <span class="eyebrow">What this site does</span>
       <h3>Docs first, hype last.</h3>
-      <p>
-        Every project entry is written like a post in a product journal: what the package covers, where the docs live,
-        which release family is current, and where to go next.
-      </p>
+      <p>Every project entry is written like a post in a product journal: what the package covers, where the docs live, which release family is current, and where to go next.</p>
     </section>
   </aside>
 
@@ -300,15 +343,9 @@
         <h2>Docs-first routing for the projects that are actually live.</h2>
       </div>
       <div class="footer-links">
-        <a href="../../archive/">Archive</a>
-        <a href="../vanilla/">Vanilla JS</a>
-        <a href="../angular/">Angular</a>
-        <a href="./">React</a>
-        <a href="../vue/">Vue</a>
+        <a href="../../archive/">Archive</a><a href="../vanilla/">Vanilla JS</a><a href="../angular/">Angular</a><a href="./">React</a><a href="../vue/">Vue</a>
       </div>
-      <p class="footer-note">
-        Built as a static editorial hub so every important route exists as real HTML for readers, crawlers, and link previews.
-      </p>
+      <p class="footer-note">Built as a static editorial hub so every important route exists as real HTML for readers, crawlers, and link previews.</p>
     </div>
   </footer>
   <script src="../../assets/site.js" defer></script>
