@@ -416,7 +416,7 @@ const renderLocaleSwitcher = (localeKey, currentPagePath, basePath) => {
   const label = locales[localeKey].ui.languageSwitcherLabel;
 
   return `
-    <div class="locale-switcher" aria-label="${escapeHtml(label)}">
+    <nav class="locale-switcher" aria-label="${escapeHtml(label)}">
       ${localeOrder
         .map((targetLocale) => {
           const localeContent = locales[targetLocale];
@@ -435,7 +435,7 @@ const renderLocaleSwitcher = (localeKey, currentPagePath, basePath) => {
           `;
         })
         .join("")}
-    </div>
+    </nav>
   `;
 };
 
@@ -452,11 +452,11 @@ const renderHeader = ({ localeKey, pagePath, basePath, currentSection }) => {
           <small>${escapeHtml(localeContent.site.tagline)}</small>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
         Menu
       </button>
       <div class="site-tools" id="site-tools" data-nav-root>
-        <nav class="site-nav">
+        <nav class="site-nav" aria-label="Primary">
           ${localeContent.navigation
             .map((item) => `
               <a class="${item.key === currentSection ? "is-active" : ""}" href="${pageHref(pagePath, localizedPath(localeKey, item.href))}">
@@ -482,12 +482,12 @@ const renderFooter = ({ localeKey, pagePath }) => {
         <span class="eyebrow">${escapeHtml(localeContent.ui.footerEyebrow)}</span>
         <h2>${escapeHtml(localeContent.ui.footerTitle)}</h2>
       </div>
-      <div class="footer-links">
+      <nav class="footer-links" aria-label="Footer">
         ${localeContent.navigation
           .slice(1)
           .map((item) => `<a href="${pageHref(pagePath, localizedPath(localeKey, item.href))}">${escapeHtml(item.label)}</a>`)
           .join("")}
-      </div>
+      </nav>
       <p class="footer-note">${escapeHtml(localeContent.ui.footerNote)}</p>
     </div>
   </footer>
@@ -511,11 +511,19 @@ const renderProjectActions = (localeKey, project) => {
   return actions.join("");
 };
 
-const renderProjectCard = (localeKey, project, currentPagePath, { featured = false } = {}) => {
+const renderProjectCard = (localeKey, project, currentPagePath, { featured = false, index = 0 } = {}) => {
   const localeContent = locales[localeKey];
+  const cardClasses = [
+    "story-card",
+    featured ? "story-card-featured" : "",
+    `story-card-slot-${(index % 3) + 1}`,
+    `platform-${project.platform}`,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return `
-  <article class="story-card ${featured ? "story-card-featured" : ""} platform-${project.platform}" data-reveal>
+  <article class="${cardClasses}" data-reveal>
     <div class="story-meta">
       <span>${escapeHtml(localeContent.platformMeta[project.platform].label)}</span>
       <span>${escapeHtml(project.family)}</span>
@@ -541,17 +549,17 @@ const renderMetrics = (localeKey, items) => {
 
   return `
   <div class="metric-grid">
-    <article class="metric-card" data-reveal>
+    <article class="metric-card metric-card-docs" data-reveal>
       <span class="metric-label">${escapeHtml(localeContent.ui.liveDocsLabel)}</span>
       <strong>${items.length}</strong>
       <p>${escapeHtml(localeContent.ui.liveDocsBody)}</p>
     </article>
-    <article class="metric-card" data-reveal>
+    <article class="metric-card metric-card-packages" data-reveal>
       <span class="metric-label">${escapeHtml(localeContent.ui.publicPackagesLabel)}</span>
       <strong>${items.filter((project) => project.npmUrl).length}</strong>
       <p>${escapeHtml(localeContent.ui.publicPackagesBody)}</p>
     </article>
-    <article class="metric-card" data-reveal>
+    <article class="metric-card metric-card-platforms" data-reveal>
       <span class="metric-label">${escapeHtml(localeContent.ui.frameworkSpreadLabel)}</span>
       <strong>${Object.keys(localeContent.platformMeta).length - 1}</strong>
       <p>${escapeHtml(localeContent.ui.frameworkSpreadBody)}</p>
@@ -612,7 +620,7 @@ const renderFeaturedStories = (localeKey, currentPagePath, items) => {
       <p>${escapeHtml(localeContent.site.featuredIntro)}</p>
     </div>
     <div class="story-grid story-grid-featured">
-      ${featuredProjects.map((project) => renderProjectCard(localeKey, project, currentPagePath, { featured: true })).join("")}
+      ${featuredProjects.map((project, index) => renderProjectCard(localeKey, project, currentPagePath, { featured: true, index })).join("")}
     </div>
   </section>
 `;
@@ -670,12 +678,12 @@ const renderPagination = (localeKey, currentPagePath, currentPage, totalPages, r
   }
 
   items.push(`
-    <div class="pagination-pages" aria-label="Pagination">
+    <div class="pagination-pages">
       ${Array.from({ length: totalPages }, (_value, index) => index + 1)
         .map((pageNumber) => {
           const href = pageHref(currentPagePath, routeForPage(pageNumber));
           return pageNumber === currentPage
-            ? `<span class="page-pill is-current">${pageNumber}</span>`
+            ? `<span class="page-pill is-current" aria-current="page">${pageNumber}</span>`
             : `<a class="page-pill" href="${href}">${pageNumber}</a>`;
         })
         .join("")}
@@ -690,7 +698,7 @@ const renderPagination = (localeKey, currentPagePath, currentPage, totalPages, r
     items.push(`<span class="pagination-arrow is-disabled">${escapeHtml(localeContent.ui.olderPosts)}</span>`);
   }
 
-  return `<nav class="pagination-wrap">${items.join("")}</nav>`;
+  return `<nav class="pagination-wrap" aria-label="Pagination">${items.join("")}</nav>`;
 };
 
 const renderArchiveFeed = (localeKey, currentPagePath, items, currentPage, totalPages, routeForPage) => {
@@ -706,7 +714,7 @@ const renderArchiveFeed = (localeKey, currentPagePath, items, currentPage, total
       <p>${escapeHtml(localeContent.ui.archiveIntro(currentPage, totalPages))}</p>
     </div>
     <div class="story-grid">
-      ${items.map((project) => renderProjectCard(localeKey, project, currentPagePath)).join("")}
+      ${items.map((project, index) => renderProjectCard(localeKey, project, currentPagePath, { index })).join("")}
     </div>
     ${renderPagination(localeKey, currentPagePath, currentPage, totalPages, routeForPage)}
   </section>
@@ -748,7 +756,7 @@ const renderRelatedProjects = (localeKey, project, items, currentPagePath) => {
       </div>
     </div>
     <div class="story-grid story-grid-compact">
-      ${related.map((candidate) => renderProjectCard(localeKey, candidate, currentPagePath)).join("")}
+      ${related.map((candidate, index) => renderProjectCard(localeKey, candidate, currentPagePath, { index })).join("")}
     </div>
   </section>
 `;
@@ -855,8 +863,9 @@ ${renderHead({
 </head>
 <body class="${escapeHtml(bodyClass)}">
   <div class="site-shell">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     ${renderHeader({ localeKey, pagePath, basePath, currentSection })}
-    <main class="site-main">
+    <main class="site-main" id="main-content">
       ${hero}
       <div class="content-shell">
         <div class="content-stack">
@@ -1040,7 +1049,7 @@ const generatePlatformPages = async (localeKey) => {
       main: `
         <section class="section-block">
           <div class="story-grid">
-            ${items.map((project) => renderProjectCard(localeKey, project, pagePath)).join("")}
+            ${items.map((project, index) => renderProjectCard(localeKey, project, pagePath, { index })).join("")}
           </div>
         </section>
       `,

@@ -124,6 +124,7 @@
 </head>
 <body class="page-project page-project-vue">
   <div class="site-shell">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     
   <header class="site-header">
     <div class="site-bar">
@@ -134,11 +135,11 @@
           <small>Bibliotecas open source de JavaScript, Angular, React e Vue.</small>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
         Menu
       </button>
       <div class="site-tools" id="site-tools" data-nav-root>
-        <nav class="site-nav">
+        <nav class="site-nav" aria-label="Primary">
           
               <a class="" href="../../">
                 Início
@@ -166,7 +167,7 @@
             
         </nav>
         
-    <div class="locale-switcher" aria-label="Idiomas">
+    <nav class="locale-switcher" aria-label="Idiomas">
       
             <a
               class="locale-link "
@@ -201,13 +202,13 @@
               <span class="locale-code">FR</span>
             </a>
           
-    </div>
+    </nav>
   
       </div>
     </div>
   </header>
 
-    <main class="site-main">
+    <main class="site-main" id="main-content">
       
       <div class="content-shell">
         <div class="content-stack">
@@ -279,7 +280,7 @@
     </div>
     <div class="story-grid story-grid-compact">
       
-  <article class="story-card  platform-vue" data-reveal>
+  <article class="story-card story-card-slot-1 platform-vue" data-reveal>
     <div class="story-meta">
       <span>Vue</span>
       <span>Estados de carregamento</span>
@@ -298,7 +299,7 @@
     </div>
   </article>
 
-  <article class="story-card  platform-angular" data-reveal>
+  <article class="story-card story-card-slot-2 platform-angular" data-reveal>
     <div class="story-meta">
       <span>Angular</span>
       <span>Gráficos</span>
@@ -317,7 +318,7 @@
     </div>
   </article>
 
-  <article class="story-card  platform-react" data-reveal>
+  <article class="story-card story-card-slot-3 platform-react" data-reveal>
     <div class="story-meta">
       <span>React</span>
       <span>Gráficos</span>
@@ -351,9 +352,9 @@
         <span class="eyebrow">Portfólio Stackline</span>
         <h2>Roteamento orientado a docs para os projetos que realmente estão no ar.</h2>
       </div>
-      <div class="footer-links">
+      <nav class="footer-links" aria-label="Footer">
         <a href="../../archive/">Arquivo</a><a href="../../platform/vanilla/">JavaScript puro</a><a href="../../platform/angular/">Angular</a><a href="../../platform/react/">React</a><a href="../../platform/vue/">Vue</a>
-      </div>
+      </nav>
       <p class="footer-note">Construído como um hub editorial estático para que cada rota importante exista como HTML real para leitores, buscadores e previews de link.</p>
     </div>
   </footer>

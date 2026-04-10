@@ -109,6 +109,7 @@
 </head>
 <body class="page-platform page-platform-vue">
   <div class="site-shell">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     
   <header class="site-header">
     <div class="site-bar">
@@ -119,11 +120,11 @@
           <small>Open-source JavaScript, Angular, React, and Vue libraries.</small>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
         Menu
       </button>
       <div class="site-tools" id="site-tools" data-nav-root>
-        <nav class="site-nav">
+        <nav class="site-nav" aria-label="Primary">
           
               <a class="" href="../../">
                 Home
@@ -151,7 +152,7 @@
             
         </nav>
         
-    <div class="locale-switcher" aria-label="Languages">
+    <nav class="locale-switcher" aria-label="Languages">
       
             <a
               class="locale-link is-active"
@@ -186,13 +187,13 @@
               <span class="locale-code">FR</span>
             </a>
           
-    </div>
+    </nav>
   
       </div>
     </div>
   </header>
 
-    <main class="site-main">
+    <main class="site-main" id="main-content">
       
   <section class="platform-hero" data-reveal>
     <span class="eyebrow">Platform archive</span>
@@ -206,7 +207,7 @@
         <section class="section-block">
           <div class="story-grid">
             
-  <article class="story-card  platform-vue" data-reveal>
+  <article class="story-card story-card-slot-1 platform-vue" data-reveal>
     <div class="story-meta">
       <span>Vue</span>
       <span>Loading states</span>
@@ -225,7 +226,7 @@
     </div>
   </article>
 
-  <article class="story-card  platform-vue" data-reveal>
+  <article class="story-card story-card-slot-2 platform-vue" data-reveal>
     <div class="story-meta">
       <span>Vue</span>
       <span>Charts</span>
@@ -244,7 +245,7 @@
     </div>
   </article>
 
-  <article class="story-card  platform-vue" data-reveal>
+  <article class="story-card story-card-slot-3 platform-vue" data-reveal>
     <div class="story-meta">
       <span>Vue</span>
       <span>Maps</span>
@@ -317,9 +318,9 @@
         <span class="eyebrow">Stackline portfolio</span>
         <h2>Docs-first routing for the projects that are actually live.</h2>
       </div>
-      <div class="footer-links">
+      <nav class="footer-links" aria-label="Footer">
         <a href="../../archive/">Archive</a><a href="../vanilla/">Vanilla JS</a><a href="../angular/">Angular</a><a href="../react/">React</a><a href="./">Vue</a>
-      </div>
+      </nav>
       <p class="footer-note">Built as a static editorial hub so every important route exists as real HTML for readers, crawlers, and link previews.</p>
     </div>
   </footer>

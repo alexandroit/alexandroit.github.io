@@ -123,6 +123,7 @@
 </head>
 <body class="page-project page-project-angular">
   <div class="site-shell">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     
   <header class="site-header">
     <div class="site-bar">
@@ -133,11 +134,11 @@
           <small>Open-source JavaScript, Angular, React, and Vue libraries.</small>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
         Menu
       </button>
       <div class="site-tools" id="site-tools" data-nav-root>
-        <nav class="site-nav">
+        <nav class="site-nav" aria-label="Primary">
           
               <a class="" href="../../">
                 Home
@@ -165,7 +166,7 @@
             
         </nav>
         
-    <div class="locale-switcher" aria-label="Languages">
+    <nav class="locale-switcher" aria-label="Languages">
       
             <a
               class="locale-link is-active"
@@ -200,13 +201,13 @@
               <span class="locale-code">FR</span>
             </a>
           
-    </div>
+    </nav>
   
       </div>
     </div>
   </header>
 
-    <main class="site-main">
+    <main class="site-main" id="main-content">
       
       <div class="content-shell">
         <div class="content-stack">
@@ -278,7 +279,7 @@
     </div>
     <div class="story-grid story-grid-compact">
       
-  <article class="story-card  platform-angular" data-reveal>
+  <article class="story-card story-card-slot-1 platform-angular" data-reveal>
     <div class="story-meta">
       <span>Angular</span>
       <span>Loading states</span>
@@ -297,7 +298,7 @@
     </div>
   </article>
 
-  <article class="story-card  platform-angular" data-reveal>
+  <article class="story-card story-card-slot-2 platform-angular" data-reveal>
     <div class="story-meta">
       <span>Angular</span>
       <span>Charts</span>
@@ -316,7 +317,7 @@
     </div>
   </article>
 
-  <article class="story-card  platform-angular" data-reveal>
+  <article class="story-card story-card-slot-3 platform-angular" data-reveal>
     <div class="story-meta">
       <span>Angular</span>
       <span>Tables</span>
@@ -350,9 +351,9 @@
         <span class="eyebrow">Stackline portfolio</span>
         <h2>Docs-first routing for the projects that are actually live.</h2>
       </div>
-      <div class="footer-links">
+      <nav class="footer-links" aria-label="Footer">
         <a href="../../archive/">Archive</a><a href="../../platform/vanilla/">Vanilla JS</a><a href="../../platform/angular/">Angular</a><a href="../../platform/react/">React</a><a href="../../platform/vue/">Vue</a>
-      </div>
+      </nav>
       <p class="footer-note">Built as a static editorial hub so every important route exists as real HTML for readers, crawlers, and link previews.</p>
     </div>
   </footer>

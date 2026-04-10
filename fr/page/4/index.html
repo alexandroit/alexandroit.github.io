@@ -132,6 +132,7 @@
 </head>
 <body class="page-archive">
   <div class="site-shell">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     
   <header class="site-header">
     <div class="site-bar">
@@ -142,11 +143,11 @@
           <small>Bibliothèques open source JavaScript, Angular, React et Vue.</small>
         </span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-tools" data-nav-toggle>
         Menu
       </button>
       <div class="site-tools" id="site-tools" data-nav-root>
-        <nav class="site-nav">
+        <nav class="site-nav" aria-label="Primary">
           
               <a class="" href="../../">
                 Accueil
@@ -174,7 +175,7 @@
             
         </nav>
         
-    <div class="locale-switcher" aria-label="Langues">
+    <nav class="locale-switcher" aria-label="Langues">
       
             <a
               class="locale-link "
@@ -209,13 +210,13 @@
               <span class="locale-code">FR</span>
             </a>
           
-    </div>
+    </nav>
   
       </div>
     </div>
   </header>
 
-    <main class="site-main">
+    <main class="site-main" id="main-content">
       
       <div class="content-shell">
         <div class="content-stack">
@@ -230,7 +231,7 @@
     </div>
     <div class="story-grid">
       
-  <article class="story-card  platform-vue" data-reveal>
+  <article class="story-card story-card-slot-1 platform-vue" data-reveal>
     <div class="story-meta">
       <span>Vue</span>
       <span>Cartes</span>
@@ -250,9 +251,9 @@
   </article>
 
     </div>
-    <nav class="pagination-wrap"><a class="pagination-arrow" href="../3/">Articles plus récents</a>
-    <div class="pagination-pages" aria-label="Pagination">
-      <a class="page-pill" href="../../">1</a><a class="page-pill" href="../2/">2</a><a class="page-pill" href="../3/">3</a><span class="page-pill is-current">4</span>
+    <nav class="pagination-wrap" aria-label="Pagination"><a class="pagination-arrow" href="../3/">Articles plus récents</a>
+    <div class="pagination-pages">
+      <a class="page-pill" href="../../">1</a><a class="page-pill" href="../2/">2</a><a class="page-pill" href="../3/">3</a><span class="page-pill is-current" aria-current="page">4</span>
     </div>
   <span class="pagination-arrow is-disabled">Articles plus anciens</span></nav>
   </section>
@@ -308,9 +309,9 @@
         <span class="eyebrow">Portefeuille Stackline</span>
         <h2>Une orientation centrée sur la doc pour les projets réellement en ligne.</h2>
       </div>
-      <div class="footer-links">
+      <nav class="footer-links" aria-label="Footer">
         <a href="../../archive/">Archives</a><a href="../../platform/vanilla/">JavaScript pur</a><a href="../../platform/angular/">Angular</a><a href="../../platform/react/">React</a><a href="../../platform/vue/">Vue</a>
-      </div>
+      </nav>
       <p class="footer-note">Construit comme un hub éditorial statique afin que chaque route importante existe en HTML réel pour les lecteurs, les moteurs de recherche et les aperçus de liens.</p>
     </div>
   </footer>
