@@ -2,6 +2,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { defaultLocale, localeOrder, locales, projects } from "./site-data.mjs";
+import {
+  assetHref,
+  canonicalUrl,
+  localePrefix,
+  localizedPath,
+  pageHref,
+  uniqueKeywords,
+} from "./site-utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,8 +33,6 @@ const ensureDir = async (targetPath) => {
   await fs.mkdir(path.dirname(targetPath), { recursive: true });
 };
 
-const toPosix = (value) => value.replaceAll(path.sep, "/");
-
 const escapeHtml = (value) =>
   String(value)
     .replaceAll("&", "&amp;")
@@ -35,64 +41,11 @@ const escapeHtml = (value) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
 
-const localePrefix = (localeKey) => (localeKey === defaultLocale ? "" : `${localeKey}/`);
-
-const localizedPath = (localeKey, basePath) =>
-  `${localePrefix(localeKey)}${basePath}`.replace(/\/+/g, "/");
-
 const siteBaseUrl = "https://alexandroit.github.io";
 
-const canonicalUrl = (localeKey, basePath) => {
-  const pagePath = localizedPath(localeKey, basePath);
-  const normalized = toPosix(pagePath);
-  const trimmed = normalized === "index.html" ? "" : normalized.replace(/index\.html$/, "");
-  return trimmed ? `${siteBaseUrl}/${trimmed}` : `${siteBaseUrl}/`;
-};
-
-const pageHref = (fromPagePath, toPagePath) => {
-  const relative = toPosix(path.posix.relative(path.posix.dirname(fromPagePath), toPagePath));
-
-  if (!relative || relative === "index.html") {
-    return "./";
-  }
-
-  if (relative.endsWith("/index.html")) {
-    return relative.slice(0, -"index.html".length);
-  }
-
-  return relative;
-};
-
-const assetHref = (fromPagePath, assetPath) =>
-  toPosix(path.posix.relative(path.posix.dirname(fromPagePath), assetPath));
-
-const uniqueKeywords = (values) => {
-  const seen = new Set();
-  const output = [];
-
-  for (const value of values.flat()) {
-    if (!value) {
-      continue;
-    }
-
-    const keyword = String(value).trim();
-
-    if (!keyword) {
-      continue;
-    }
-
-    const normalized = keyword.toLowerCase();
-
-    if (seen.has(normalized)) {
-      continue;
-    }
-
-    seen.add(normalized);
-    output.push(keyword);
-  }
-
-  return output;
-};
+const pageUrl = (localeKey, basePath) => canonicalUrl(siteBaseUrl, localeKey, defaultLocale, basePath);
+const localPath = (localeKey, basePath) => localizedPath(localeKey, defaultLocale, basePath);
+const localPrefix = (localeKey) => localePrefix(localeKey, defaultLocale);
 
 const jsonLdScript = (payload) =>
   `<script type="application/ld+json">${JSON.stringify(payload, null, 2)}</script>`;
@@ -194,7 +147,7 @@ const buildBreadcrumbSchema = (localeKey, items) => ({
     "@type": "ListItem",
     position: index + 1,
     name: item.name,
-    item: canonicalUrl(item.localeKey ?? localeKey, item.basePath),
+    item: pageUrl(item.localeKey ?? localeKey, item.basePath),
   })),
 });
 
@@ -215,7 +168,7 @@ const buildWebsiteSchema = (localeKey) => {
       {
         "@type": "Blog",
         name: `${localeContent.title} Open Source Journal`,
-        url: canonicalUrl(localeKey, "index.html"),
+        url: pageUrl(localeKey, "index.html"),
         description: localeContent.site.description,
         inLanguage: localeContent.htmlLang,
         publisher: buildOrganizationSchema(localeKey),
@@ -232,7 +185,7 @@ const buildCollectionSchema = (localeKey, { title, description, basePath, items 
     "@type": "CollectionPage",
     name: title,
     description,
-    url: canonicalUrl(localeKey, basePath),
+    url: pageUrl(localeKey, basePath),
     inLanguage: localeContent.htmlLang,
     isPartOf: {
       "@type": "WebSite",
@@ -244,7 +197,7 @@ const buildCollectionSchema = (localeKey, { title, description, basePath, items 
       itemListElement: items.map((project, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: canonicalUrl(localeKey, projectBasePath(project.slug)),
+        url: pageUrl(localeKey, projectBasePath(project.slug)),
         name: project.title,
       })),
     },
@@ -261,7 +214,7 @@ const buildProjectSchema = (localeKey, project, basePath, keywords) => {
       {
         "@type": "WebPage",
         name: project.title,
-        url: canonicalUrl(localeKey, basePath),
+        url: pageUrl(localeKey, basePath),
         description: project.summary,
         inLanguage: localeContent.htmlLang,
         isPartOf: {
@@ -274,7 +227,7 @@ const buildProjectSchema = (localeKey, project, basePath, keywords) => {
         "@type": "SoftwareSourceCode",
         name: project.title,
         description: project.summary,
-        url: canonicalUrl(localeKey, basePath),
+        url: pageUrl(localeKey, basePath),
         codeRepository: project.repoUrl,
         version: project.version,
         keywords: keywords.join(", "),
@@ -339,7 +292,7 @@ const alternateLinks = (basePath) =>
   localeOrder
     .map((localeKey) => {
       const localeContent = locales[localeKey];
-      return `<link rel="alternate" hreflang="${escapeHtml(localeContent.hreflang)}" href="${escapeHtml(canonicalUrl(localeKey, basePath))}" />`;
+      return `<link rel="alternate" hreflang="${escapeHtml(localeContent.hreflang)}" href="${escapeHtml(pageUrl(localeKey, basePath))}" />`;
     })
     .join("\n  ");
 
@@ -378,7 +331,7 @@ const renderHead = ({
     .filter((otherLocale) => otherLocale !== localeKey)
     .map((otherLocale) => `<meta property="og:locale:alternate" content="${escapeHtml(locales[otherLocale].ogLocale)}" />`)
     .join("\n  ")}
-  <meta property="og:url" content="${escapeHtml(canonicalUrl(localeKey, basePath))}" />
+  <meta property="og:url" content="${escapeHtml(pageUrl(localeKey, basePath))}" />
   <meta property="og:image" content="${escapeHtml(`${siteBaseUrl}/${staticAssetPaths.socialCard}`)}" />
   <meta property="og:image:alt" content="${escapeHtml(buildMetaTitle(localeKey, title))}" />
   ${ogType === "article" ? `<meta property="article:modified_time" content="${escapeHtml(localeContent.updatedAt)}" />` : ""}
@@ -386,11 +339,11 @@ const renderHead = ({
   <meta name="twitter:title" content="${escapeHtml(buildMetaTitle(localeKey, title))}" />
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${escapeHtml(`${siteBaseUrl}/${staticAssetPaths.socialCard}`)}" />
-  <link rel="canonical" href="${escapeHtml(canonicalUrl(localeKey, basePath))}" />
+  <link rel="canonical" href="${escapeHtml(pageUrl(localeKey, basePath))}" />
   ${alternateLinks(basePath)}
-  <link rel="alternate" hreflang="x-default" href="${escapeHtml(canonicalUrl(defaultLocale, basePath))}" />
-  ${prevBasePath ? `<link rel="prev" href="${escapeHtml(canonicalUrl(localeKey, prevBasePath))}" />` : ""}
-  ${nextBasePath ? `<link rel="next" href="${escapeHtml(canonicalUrl(localeKey, nextBasePath))}" />` : ""}
+  <link rel="alternate" hreflang="x-default" href="${escapeHtml(pageUrl(defaultLocale, basePath))}" />
+  ${prevBasePath ? `<link rel="prev" href="${escapeHtml(pageUrl(localeKey, prevBasePath))}" />` : ""}
+  ${nextBasePath ? `<link rel="next" href="${escapeHtml(pageUrl(localeKey, nextBasePath))}" />` : ""}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -420,7 +373,7 @@ const renderLocaleSwitcher = (localeKey, currentPagePath, basePath) => {
       ${localeOrder
         .map((targetLocale) => {
           const localeContent = locales[targetLocale];
-          const href = pageHref(currentPagePath, localizedPath(targetLocale, basePath));
+          const href = pageHref(currentPagePath, localPath(targetLocale, basePath));
           return `
             <a
               class="locale-link ${targetLocale === localeKey ? "is-active" : ""}"
@@ -445,7 +398,7 @@ const renderHeader = ({ localeKey, pagePath, basePath, currentSection }) => {
   return `
   <header class="site-header">
     <div class="site-bar">
-      <a class="site-brand" href="${pageHref(pagePath, localizedPath(localeKey, "index.html"))}">
+      <a class="site-brand" href="${pageHref(pagePath, localPath(localeKey, "index.html"))}">
         <span class="site-brand-mark"></span>
         <span>
           <strong>${escapeHtml(localeContent.title)}</strong>
@@ -459,7 +412,7 @@ const renderHeader = ({ localeKey, pagePath, basePath, currentSection }) => {
         <nav class="site-nav" aria-label="Primary">
           ${localeContent.navigation
             .map((item) => `
-              <a class="${item.key === currentSection ? "is-active" : ""}" href="${pageHref(pagePath, localizedPath(localeKey, item.href))}">
+              <a class="${item.key === currentSection ? "is-active" : ""}" href="${pageHref(pagePath, localPath(localeKey, item.href))}">
                 ${escapeHtml(item.label)}
               </a>
             `)
@@ -485,7 +438,7 @@ const renderFooter = ({ localeKey, pagePath }) => {
       <nav class="footer-links" aria-label="Footer">
         ${localeContent.navigation
           .slice(1)
-          .map((item) => `<a href="${pageHref(pagePath, localizedPath(localeKey, item.href))}">${escapeHtml(item.label)}</a>`)
+          .map((item) => `<a href="${pageHref(pagePath, localPath(localeKey, item.href))}">${escapeHtml(item.label)}</a>`)
           .join("")}
       </nav>
       <p class="footer-note">${escapeHtml(localeContent.ui.footerNote)}</p>
@@ -530,7 +483,7 @@ const renderProjectCard = (localeKey, project, currentPagePath, { featured = fal
       <span>${escapeHtml(project.version)}</span>
     </div>
     <h3>
-      <a href="${pageHref(currentPagePath, localizedPath(localeKey, projectBasePath(project.slug)))}">${escapeHtml(project.title)}</a>
+      <a href="${pageHref(currentPagePath, localPath(localeKey, projectBasePath(project.slug)))}">${escapeHtml(project.title)}</a>
     </h3>
     <p>${escapeHtml(project.summary)}</p>
     <ul class="chip-row" aria-label="Project highlights">
@@ -538,7 +491,7 @@ const renderProjectCard = (localeKey, project, currentPagePath, { featured = fal
     </ul>
     <div class="story-links">
       ${renderProjectActions(localeKey, project)}
-      <a class="story-readmore" href="${pageHref(currentPagePath, localizedPath(localeKey, projectBasePath(project.slug)))}">${escapeHtml(localeContent.ui.readDossier)}</a>
+      <a class="story-readmore" href="${pageHref(currentPagePath, localPath(localeKey, projectBasePath(project.slug)))}">${escapeHtml(localeContent.ui.readDossier)}</a>
     </div>
   </article>
 `;
@@ -580,8 +533,8 @@ const renderHero = (localeKey, currentPagePath, items) => {
       <h1>${escapeHtml(localeContent.site.heroTitle)}</h1>
       <p>${escapeHtml(localeContent.site.heroSummary)}</p>
       <div class="hero-actions">
-        <a class="button-primary" href="${pageHref(currentPagePath, localizedPath(localeKey, "archive/index.html"))}">${escapeHtml(localeContent.ui.openArchive)}</a>
-        <a class="button-secondary" href="${pageHref(currentPagePath, localizedPath(localeKey, platformBasePath("vanilla")))}">${escapeHtml(localeContent.ui.browseVanilla)}</a>
+        <a class="button-primary" href="${pageHref(currentPagePath, localPath(localeKey, "archive/index.html"))}">${escapeHtml(localeContent.ui.openArchive)}</a>
+        <a class="button-secondary" href="${pageHref(currentPagePath, localPath(localeKey, platformBasePath("vanilla")))}">${escapeHtml(localeContent.ui.browseVanilla)}</a>
       </div>
     </div>
     <div class="hero-panel" data-reveal>
@@ -640,8 +593,8 @@ const renderSidebar = (localeKey, currentPagePath, items, currentPlatform = "all
           .map((platform) => {
             const href =
               platform === "all"
-                ? localizedPath(localeKey, "index.html")
-                : localizedPath(localeKey, platformBasePath(platform));
+                ? localPath(localeKey, "index.html")
+                : localPath(localeKey, platformBasePath(platform));
             return `
               <a class="${platform === currentPlatform ? "is-active" : ""}" href="${pageHref(currentPagePath, href)}">
                 <span>${escapeHtml(localeContent.platformMeta[platform].label)}</span>
@@ -890,7 +843,7 @@ const generateArchivePages = async (localeKey) => {
     const start = pageIndex * localeContent.ui.postsPerPage;
     const items = localizedProjects.slice(start, start + localeContent.ui.postsPerPage);
     const basePath = archiveBasePath(pageNumber);
-    const pagePath = localizedPath(localeKey, basePath);
+    const pagePath = localPath(localeKey, basePath);
     const title = pageNumber === 1 ? localeContent.seo.homeTitle : localeContent.seo.archivePageTitle(pageNumber);
     const description =
       pageNumber === 1 ? localeContent.site.description : localeContent.seo.archivePageDescription(pageNumber);
@@ -928,7 +881,7 @@ const generateArchivePages = async (localeKey) => {
           ? `${renderHero(localeKey, pagePath, localizedProjects)}${renderMetrics(localeKey, localizedProjects)}${renderFeaturedStories(localeKey, pagePath, localizedProjects)}`
           : "",
       main: renderArchiveFeed(localeKey, pagePath, items, pageNumber, totalPages, (targetPage) =>
-        localizedPath(localeKey, archiveBasePath(targetPage)),
+        localPath(localeKey, archiveBasePath(targetPage)),
       ),
       sidebar: renderSidebar(localeKey, pagePath, localizedProjects),
       prevBasePath: pageNumber > 1 ? archiveBasePath(pageNumber - 1) : "",
@@ -939,7 +892,7 @@ const generateArchivePages = async (localeKey) => {
 
     if (pageNumber === 1) {
       const mirrorBasePath = archiveMirrorBasePath(pageNumber);
-      const mirrorPagePath = localizedPath(localeKey, mirrorBasePath);
+      const mirrorPagePath = localPath(localeKey, mirrorBasePath);
       const mirrorTitle = localeContent.seo.archiveTitle;
       const mirrorDescription = localeContent.platformMeta.all.description;
       const mirrorHtml = renderLayout({
@@ -965,7 +918,7 @@ const generateArchivePages = async (localeKey) => {
         bodyClass: "page-archive",
         hero: renderPlatformHero(localeKey, "all"),
         main: renderArchiveFeed(localeKey, mirrorPagePath, items, pageNumber, totalPages, (targetPage) =>
-          localizedPath(localeKey, archiveMirrorBasePath(targetPage)),
+          localPath(localeKey, archiveMirrorBasePath(targetPage)),
         ),
         sidebar: renderSidebar(localeKey, mirrorPagePath, localizedProjects),
         nextBasePath: totalPages > 1 ? archiveMirrorBasePath(2) : "",
@@ -974,7 +927,7 @@ const generateArchivePages = async (localeKey) => {
       await writePage(mirrorPagePath, mirrorHtml);
     } else {
       const mirrorBasePath = archiveMirrorBasePath(pageNumber);
-      const mirrorPagePath = localizedPath(localeKey, mirrorBasePath);
+      const mirrorPagePath = localPath(localeKey, mirrorBasePath);
       const mirrorTitle = localeContent.seo.archivePageTitle(pageNumber);
       const mirrorDescription = localeContent.seo.archivePageDescription(pageNumber);
       const mirrorHtml = renderLayout({
@@ -1001,7 +954,7 @@ const generateArchivePages = async (localeKey) => {
         bodyClass: "page-archive",
         hero: renderPlatformHero(localeKey, "all"),
         main: renderArchiveFeed(localeKey, mirrorPagePath, items, pageNumber, totalPages, (targetPage) =>
-          localizedPath(localeKey, archiveMirrorBasePath(targetPage)),
+          localPath(localeKey, archiveMirrorBasePath(targetPage)),
         ),
         sidebar: renderSidebar(localeKey, mirrorPagePath, localizedProjects),
         prevBasePath: pageNumber > 1 ? archiveMirrorBasePath(pageNumber - 1) : "",
@@ -1020,7 +973,7 @@ const generatePlatformPages = async (localeKey) => {
   for (const platform of platformOrder.filter((value) => value !== "all")) {
     const items = localizedProjects.filter((project) => project.platform === platform);
     const basePath = platformBasePath(platform);
-    const pagePath = localizedPath(localeKey, basePath);
+    const pagePath = localPath(localeKey, basePath);
     const title = localeContent.seo.platformTitle(localeContent.platformMeta[platform].label);
     const description = localeContent.platformMeta[platform].description;
 
@@ -1066,7 +1019,7 @@ const generateProjectPages = async (localeKey) => {
 
   for (const project of localizedProjects) {
     const basePath = projectBasePath(project.slug);
-    const pagePath = localizedPath(localeKey, basePath);
+    const pagePath = localPath(localeKey, basePath);
     const keywords = buildProjectKeywords(localeKey, project);
 
     const html = renderLayout({
@@ -1103,7 +1056,7 @@ const generateNotFoundPages = async () => {
   for (const localeKey of localeOrder) {
     const localeContent = locales[localeKey];
     const basePath = notFoundBasePath;
-    const pagePath = localizedPath(localeKey, basePath);
+    const pagePath = localPath(localeKey, basePath);
 
     const html = renderLayout({
       localeKey,
@@ -1127,8 +1080,8 @@ const generateNotFoundPages = async () => {
           <h1>${escapeHtml(localeContent.ui.notFoundTitle)}</h1>
           <p>${escapeHtml(localeContent.ui.notFoundBody)}</p>
           <div class="hero-actions">
-            <a class="button-primary" href="${pageHref(pagePath, localizedPath(localeKey, "index.html"))}">${escapeHtml(localeContent.ui.backHome)}</a>
-            <a class="button-secondary" href="${pageHref(pagePath, localizedPath(localeKey, "archive/index.html"))}">${escapeHtml(localeContent.ui.openArchiveShort)}</a>
+            <a class="button-primary" href="${pageHref(pagePath, localPath(localeKey, "index.html"))}">${escapeHtml(localeContent.ui.backHome)}</a>
+            <a class="button-secondary" href="${pageHref(pagePath, localPath(localeKey, "archive/index.html"))}">${escapeHtml(localeContent.ui.openArchiveShort)}</a>
           </div>
         </section>
       `,
@@ -1148,8 +1101,8 @@ ${[...generatedPages]
   .filter((pagePath) => !pagePath.endsWith("404.html"))
   .map((pagePath) => {
     const localeKey = localeForPagePath(pagePath);
-    const basePath = localeKey === defaultLocale ? pagePath : pagePath.slice(localePrefix(localeKey).length);
-    return `  <url><loc>${escapeHtml(canonicalUrl(localeKey, basePath))}</loc><lastmod>${defaultContent.updatedAt}</lastmod></url>`;
+    const basePath = localeKey === defaultLocale ? pagePath : pagePath.slice(localPrefix(localeKey).length);
+    return `  <url><loc>${escapeHtml(pageUrl(localeKey, basePath))}</loc><lastmod>${defaultContent.updatedAt}</lastmod></url>`;
   })
   .join("\n")}
 </urlset>
