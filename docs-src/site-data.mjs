@@ -765,7 +765,7 @@ export const projects = [
     slug: "react-highcharts",
     title: "React Highcharts",
     platform: "react",
-    version: "19.0.1",
+    version: "19.0.0",
     packageName: "@stackline/react-highcharts",
     docsUrl: "https://alexandroit.github.io/react-highcharts/",
     repoUrl: "https://github.com/alexandroit/react-highcharts",
