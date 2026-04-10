@@ -88,6 +88,11 @@ img {
   align-items: center;
   gap: 14px;
   min-width: 0;
+  flex: 1 1 auto;
+}
+
+.site-brand > span:last-child {
+  min-width: 0;
 }
 
 .site-brand strong {
@@ -135,6 +140,7 @@ img {
   color: var(--muted);
   font-size: 0.92rem;
   font-weight: 700;
+  white-space: nowrap;
   transition: color 160ms ease, background 160ms ease, transform 160ms ease;
 }
 
@@ -167,6 +173,7 @@ img {
   color: var(--muted);
   font-size: 0.84rem;
   font-weight: 800;
+  white-space: nowrap;
   transition: color 160ms ease, background 160ms ease, transform 160ms ease;
 }
 
@@ -243,6 +250,7 @@ img {
   margin: 0 0 16px;
   font-size: clamp(2.6rem, 5vw, 4.7rem);
   line-height: 0.96;
+  text-wrap: balance;
 }
 
 .hero-copy p,
@@ -442,7 +450,8 @@ img {
 .section-heading h2 {
   margin: 0;
   font-size: clamp(1.9rem, 2.8vw, 3rem);
-  line-height: 1.02;
+  line-height: 1.04;
+  text-wrap: balance;
 }
 
 .section-heading p {
@@ -464,9 +473,12 @@ img {
 }
 
 .story-card {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 14px;
   padding: 22px;
+  height: 100%;
   border-radius: var(--radius-lg);
   background: var(--surface-strong);
   border: 1px solid rgba(33, 30, 25, 0.09);
@@ -488,7 +500,8 @@ img {
 .story-card h3 {
   margin: 0;
   font-size: 1.65rem;
-  line-height: 1;
+  line-height: 1.04;
+  text-wrap: balance;
 }
 
 .story-card h3 a:hover {
@@ -501,6 +514,12 @@ img {
 .footer-note {
   margin: 0;
   color: var(--muted);
+}
+
+.metric-card,
+.sidebar-card,
+.project-facts div {
+  height: 100%;
 }
 
 .chip-row,
@@ -529,6 +548,7 @@ img {
 
 .story-links {
   margin-top: 6px;
+  width: 100%;
 }
 
 .story-links .story-readmore {
@@ -678,39 +698,68 @@ img {
 }
 
 .js-ready [data-reveal] {
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1;
+  transform: translateY(14px);
+  will-change: transform;
 }
 
 .js-ready [data-reveal].is-visible {
-  opacity: 1;
   transform: translateY(0);
-  transition: opacity 480ms ease, transform 480ms ease;
+  transition: transform 420ms ease;
 }
 
 @media (max-width: 1120px) {
   .hero-shell,
   .project-hero,
   .content-shell,
-  .project-layout,
-  .story-grid-featured,
-  .story-grid-compact {
+  .project-layout {
     grid-template-columns: 1fr;
   }
 
   .metric-grid,
-  .story-grid {
+  .story-grid,
+  .story-grid-featured,
+  .story-grid-compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .site-bar {
+    gap: 12px;
+  }
+
+  .hero-shell,
+  .platform-hero,
+  .project-hero,
+  .content-shell,
+  .project-layout {
+    gap: 22px;
+  }
+
+  .metric-grid,
+  .story-grid,
+  .story-grid-featured,
+  .story-grid-compact {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 760px) {
+  .site-main {
+    width: min(100% - 20px, var(--content-width));
+    padding: 28px 0 56px;
+  }
+
   .site-bar {
     padding: 14px 0;
+    align-items: flex-start;
   }
 
   .nav-toggle {
     display: inline-flex;
+    min-height: 44px;
+    padding: 0 16px;
   }
 
   .site-tools {
@@ -729,16 +778,27 @@ img {
   .site-nav {
     width: 100%;
     justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .site-nav a {
+    display: flex;
+    width: 100%;
+    justify-content: center;
   }
 
   .locale-switcher {
     width: 100%;
     justify-content: center;
+    gap: 6px;
+    padding: 4px;
   }
 
   .locale-link {
     flex: 1 1 0;
     justify-content: center;
+    min-height: 38px;
+    padding: 0 10px;
   }
 
   .site-tools.is-open .site-nav {
@@ -749,13 +809,47 @@ img {
     flex-wrap: wrap;
   }
 
+  .site-brand {
+    max-width: calc(100% - 110px);
+  }
+
+  .site-brand small {
+    display: none;
+  }
+
   .hero-shell,
   .platform-hero,
   .project-hero,
   .section-block,
   .sidebar-card,
   .footer-grid {
-    padding: 22px;
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .hero-copy h1,
+  .platform-hero h1,
+  .project-hero h1 {
+    font-size: clamp(2.3rem, 11vw, 3.7rem);
+  }
+
+  .hero-panel-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-actions > *,
+  .sidebar-actions > * {
+    flex: 1 1 100%;
+  }
+
+  .story-links .action,
+  .story-links .story-readmore {
+    flex: 1 1 calc(50% - 10px);
+  }
+
+  .story-links .story-readmore {
+    margin-left: 0;
   }
 
   .project-facts {
@@ -768,5 +862,9 @@ img {
 
   .pagination-wrap > *:last-child {
     justify-self: start;
+  }
+
+  .pagination-pages {
+    justify-content: flex-start;
   }
 }
