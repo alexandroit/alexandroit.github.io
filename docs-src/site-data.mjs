@@ -799,6 +799,43 @@ export const projects = [
     },
   },
   {
+    slug: "react-google-maps",
+    title: "React Google Maps",
+    platform: "react",
+    version: "19.0.0",
+    packageName: "@stackline/react-google-maps",
+    docsUrl: "https://alexandroit.github.io/react-google-maps/",
+    repoUrl: "https://github.com/alexandroit/react-google-maps",
+    npmUrl: "https://www.npmjs.com/package/@stackline/react-google-maps",
+    featured: false,
+    i18n: {
+      en: {
+        family: "Maps",
+        releaseStatus: "Public npm package",
+        releaseLine: "React 19 family",
+        summary:
+          "A maintained React wrapper for the Google Maps JavaScript API, with declarative maps, advanced markers, clustering, and versioned live demos.",
+        highlights: ["Maps", "Docs live", "Published on npm"],
+      },
+      pt: {
+        family: "Mapas",
+        releaseStatus: "Pacote público no npm",
+        releaseLine: "Família React 19",
+        summary:
+          "Um wrapper React mantido para a API JavaScript do Google Maps, com mapas declarativos, advanced markers, clustering e demos versionadas.",
+        highlights: ["Mapas", "Docs no ar", "Publicado no npm"],
+      },
+      fr: {
+        family: "Cartes",
+        releaseStatus: "Package public sur npm",
+        releaseLine: "Famille React 19",
+        summary:
+          "Un wrapper React maintenu pour l'API JavaScript Google Maps, avec cartes déclaratives, advanced markers, clustering et démos versionnées.",
+        highlights: ["Cartes", "Docs en ligne", "Publié sur npm"],
+      },
+    },
+  },
+  {
     slug: "vue-highcharts",
     title: "Vue Highcharts",
     platform: "vue",
