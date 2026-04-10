@@ -238,10 +238,14 @@ button:focus-visible {
 
 .nav-toggle {
   display: none;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.92);
   margin-left: auto;
   cursor: pointer;
+  line-height: 1;
+  text-align: center;
 }
 
 .site-main {
@@ -988,18 +992,37 @@ button:focus-visible {
   }
 
   .site-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand toggle"
+      "tools tools";
+    gap: 12px 10px;
     padding: 14px 0;
-    align-items: flex-start;
+    align-items: center;
+  }
+
+  .site-brand {
+    grid-area: brand;
+  }
+
+  .site-brand small {
+    display: none;
   }
 
   .nav-toggle {
     display: inline-flex;
+    grid-area: toggle;
+    min-width: 88px;
     min-height: 44px;
     padding: 0 16px;
+    margin-left: 0;
+    justify-self: end;
   }
 
   .site-tools {
     display: none;
+    grid-area: tools;
     width: 100%;
     flex-direction: column;
     align-items: stretch;
