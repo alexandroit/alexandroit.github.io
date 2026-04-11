@@ -1,4 +1,4 @@
-# Alexandroit Site Source
+# Alexandro.Net Site Source
 
 This folder generates the personal `alexandroit.github.io` site as a static editorial hub for the active Stackline portfolio.
 

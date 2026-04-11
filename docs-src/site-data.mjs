@@ -9,9 +9,9 @@ export const locales = {
     ogLocale: "en_US",
     flag: "🇺🇸",
     languageLabel: "English",
-    title: "Alexandroit",
+    title: "Alexandro.Net",
     author: "Alexandro",
-    publisher: "Alexandroit",
+    publisher: "Alexandro.Net",
     themeColor: "#f4efe6",
     updatedAt: "2026-04-08",
     baseKeywords: [
@@ -30,7 +30,7 @@ export const locales = {
       tagline: "Open-source JavaScript, Angular, React, and Vue libraries.",
       description:
         "Discover open-source JavaScript libraries, Angular components, React components, and Vue components from the Stackline portfolio, with live docs, GitHub repositories, npm packages, and release-family guides.",
-      heroEyebrow: "Alexandroit open source journal",
+      heroEyebrow: "Alexandro.Net open source journal",
       heroTitle: "Open-source JavaScript, Angular, React, and Vue libraries with live docs.",
       heroSummary:
         "This site tracks the active documentation, release families, npm packages, and GitHub repositories behind the Stackline portfolio. Instead of a single marketing page, it works like a modern editorial archive with platform indexes, paginated project posts, and direct paths into every documentation site that is actually live today.",
@@ -42,7 +42,7 @@ export const locales = {
       archiveTitle: "Open source library archive",
       archivePageTitle: (page) => `Open source library archive page ${page}`,
       archivePageDescription: (page) =>
-        `Archive page ${page} of open-source JavaScript libraries, Angular components, React components, and Vue components on Alexandroit.`,
+        `Archive page ${page} of open-source JavaScript libraries, Angular components, React components, and Vue components on Alexandro.Net.`,
       platformTitle: (label) => `${label} libraries and components`,
       projectTitle: (title) => `${title} docs and package guide`,
       notFoundTitle: "Page not found",
@@ -150,9 +150,9 @@ export const locales = {
     ogLocale: "pt_BR",
     flag: "🇧🇷",
     languageLabel: "Português",
-    title: "Alexandroit",
+    title: "Alexandro.Net",
     author: "Alexandro",
-    publisher: "Alexandroit",
+    publisher: "Alexandro.Net",
     themeColor: "#f4efe6",
     updatedAt: "2026-04-08",
     baseKeywords: [
@@ -171,7 +171,7 @@ export const locales = {
       tagline: "Bibliotecas open source de JavaScript, Angular, React e Vue.",
       description:
         "Descubra bibliotecas open source de JavaScript, componentes Angular, componentes React e componentes Vue do portfólio Stackline, com docs no ar, repositórios no GitHub, pacotes no npm e guias por família de release.",
-      heroEyebrow: "Jornal open source da Alexandroit",
+      heroEyebrow: "Jornal open source da Alexandro.Net",
       heroTitle: "Bibliotecas open source de JavaScript, Angular, React e Vue com docs no ar.",
       heroSummary:
         "Este site acompanha a documentação ativa, as famílias de release, os pacotes npm e os repositórios GitHub por trás do portfólio Stackline. Em vez de uma única página de marketing, ele funciona como um arquivo editorial moderno, com índices por plataforma, posts paginados e acesso direto a cada documentação realmente publicada hoje.",
@@ -183,7 +183,7 @@ export const locales = {
       archiveTitle: "Arquivo de bibliotecas open source",
       archivePageTitle: (page) => `Arquivo de bibliotecas open source página ${page}`,
       archivePageDescription: (page) =>
-        `Página ${page} do arquivo de bibliotecas open source de JavaScript, componentes Angular, componentes React e componentes Vue na Alexandroit.`,
+        `Página ${page} do arquivo de bibliotecas open source de JavaScript, componentes Angular, componentes React e componentes Vue na Alexandro.Net.`,
       platformTitle: (label) => `${label} bibliotecas e componentes`,
       projectTitle: (title) => `${title} docs e guia do pacote`,
       notFoundTitle: "Página não encontrada",
@@ -291,9 +291,9 @@ export const locales = {
     ogLocale: "fr_FR",
     flag: "🇫🇷",
     languageLabel: "Français",
-    title: "Alexandroit",
+    title: "Alexandro.Net",
     author: "Alexandro",
-    publisher: "Alexandroit",
+    publisher: "Alexandro.Net",
     themeColor: "#f4efe6",
     updatedAt: "2026-04-08",
     baseKeywords: [
@@ -312,7 +312,7 @@ export const locales = {
       tagline: "Bibliothèques open source JavaScript, Angular, React et Vue.",
       description:
         "Découvrez des bibliothèques open source JavaScript, des composants Angular, des composants React et des composants Vue du portefeuille Stackline, avec docs en ligne, dépôts GitHub, packages npm et guides par famille de release.",
-      heroEyebrow: "Journal open source Alexandroit",
+      heroEyebrow: "Journal open source Alexandro.Net",
       heroTitle: "Bibliothèques open source JavaScript, Angular, React et Vue avec docs en ligne.",
       heroSummary:
         "Ce site suit la documentation active, les familles de release, les packages npm et les dépôts GitHub du portefeuille Stackline. Au lieu d'une simple page marketing, il fonctionne comme une archive éditoriale moderne avec des index par plateforme, des pages paginées et un accès direct à chaque documentation réellement en ligne aujourd'hui.",
@@ -324,7 +324,7 @@ export const locales = {
       archiveTitle: "Archive des bibliothèques open source",
       archivePageTitle: (page) => `Archive des bibliothèques open source page ${page}`,
       archivePageDescription: (page) =>
-        `Page ${page} de l'archive des bibliothèques open source JavaScript, des composants Angular, React et Vue sur Alexandroit.`,
+        `Page ${page} de l'archive des bibliothèques open source JavaScript, des composants Angular, React et Vue sur Alexandro.Net.`,
       platformTitle: (label) => `${label} bibliothèques et composants`,
       projectTitle: (title) => `${title} docs et guide du package`,
       notFoundTitle: "Page introuvable",
