@@ -987,9 +987,9 @@ export const projects = [
     slug: "react-multiselect-dropdown",
     title: "React Multiselect Dropdown",
     platform: "react",
-    version: "19.0.0",
+    version: "17.0.0",
     packageName: "@stackline/react-multiselect-dropdown",
-    docsUrl: "https://alexandroit.github.io/react-multiselect-dropdown/",
+    docsUrl: "https://alexandro.net/docs/react/multiselect/react-17/",
     repoUrl: "https://github.com/alexandroit/react-multiselect-dropdown",
     npmUrl: "https://www.npmjs.com/package/@stackline/react-multiselect-dropdown",
     featured: false,
@@ -997,25 +997,25 @@ export const projects = [
       en: {
         family: "Forms",
         releaseStatus: "Public npm package",
-        releaseLine: "React 19 family",
+        releaseLine: "React 17 family",
         summary:
-          "A maintained React multiselect dropdown with versioned demos and a settings model designed to stay familiar across framework families.",
+          "A maintained React 17 multiselect dropdown with controlled state, searchable options, skins, live demos, and ADA-friendly keyboard support.",
         highlights: ["Form controls", "Docs live", "Published on npm"],
       },
       pt: {
         family: "Formulários",
         releaseStatus: "Pacote público no npm",
-        releaseLine: "Família React 19",
+        releaseLine: "Família React 17",
         summary:
-          "Um multiselect dropdown React mantido, com demos versionadas e um modelo de configuração pensado para permanecer familiar entre diferentes famílias de framework.",
+          "Um multiselect dropdown React 17 mantido, com estado controlado, busca, skins, demos ao vivo e suporte de teclado acessível.",
         highlights: ["Controles de formulário", "Docs no ar", "Publicado no npm"],
       },
       fr: {
         family: "Formulaires",
         releaseStatus: "Package public sur npm",
-        releaseLine: "Famille React 19",
+        releaseLine: "Famille React 17",
         summary:
-          "Un multiselect dropdown React maintenu, avec des démos versionnées et un modèle de configuration conçu pour rester familier entre différentes familles de framework.",
+          "Un multiselect dropdown React 17 maintenu, avec état contrôlé, recherche, skins, démos en ligne et support clavier accessible.",
         highlights: ["Contrôles de formulaire", "Docs en ligne", "Publié sur npm"],
       },
     },
