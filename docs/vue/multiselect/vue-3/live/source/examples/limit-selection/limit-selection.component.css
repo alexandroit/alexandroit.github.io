@@ -1,0 +1,49 @@
+.demo-surface {
+  display: grid;
+  gap: 14px;
+}
+
+.demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.demo-actions button {
+  min-height: 34px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #0f172a;
+  font-weight: 800;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.validation-message {
+  margin: 0;
+  color: #047857;
+  font-weight: 800;
+}
+
+.template-option,
+.template-badge {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.template-option small {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.metric-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  flex: none;
+}
+
+

@@ -1,0 +1,17 @@
+.loop-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.loop-card {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+}
+
+.loop-card h2 {
+  margin: 0;
+  font-size: 16px;
+}

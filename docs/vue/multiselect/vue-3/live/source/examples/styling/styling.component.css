@@ -1,0 +1,32 @@
+.styling-demo {
+  display: grid;
+  gap: 14px;
+}
+
+.skin-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skin-buttons button {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #334155;
+  font-weight: 800;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.skin-buttons button.active {
+  color: #fff;
+  background: #0f766e;
+  border-color: #0f766e;
+}
+
+.styling-demo p {
+  margin: 0;
+  color: #475569;
+}

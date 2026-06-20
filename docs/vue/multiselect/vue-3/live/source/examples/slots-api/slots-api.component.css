@@ -1,0 +1,48 @@
+.slot-option,
+.slot-badge,
+.slot-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.slot-option {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.slot-option small {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.slot-badge {
+  color: #075985;
+  background: #e0f2fe;
+  min-height: 28px;
+  padding: 4px 8px;
+  font-weight: 800;
+}
+
+.slot-badge button,
+.slot-group {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  cursor: pointer;
+}
+
+.slot-badge button {
+  width: 18px;
+  height: 18px;
+  color: inherit;
+}
+
+.slot-group {
+  width: 100%;
+  justify-content: space-between;
+  min-height: 38px;
+  padding: 0 12px;
+  color: #334155;
+  font-weight: 900;
+}
